@@ -26,7 +26,7 @@ export default function WhyUsPage() {
         <div className="container">
           <div className="why-grid">
             <div className="why-photo reveal">
-              <Image src="/assets/airport-transfer-melbourne.png" alt="Melbourne Maxi Cab Service airport transfer" fill sizes="(max-width: 768px) 100vw, 50vw" />
+              <Image src="/assets/airport-transfer-melbourne.webp" alt="Melbourne Maxi Cab Service airport transfer" fill sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="stat-banner">
                 <span className="stat-val">4.9★</span>
                 <span className="stat-lbl">Google rating (1,200+ reviews)</span>

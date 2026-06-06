@@ -23,7 +23,7 @@ export default function HomePage() {
       {/* HERO */}
       <section className="hero" id="top">
         <div className="hero-bg">
-          <Image src="/assets/hero-bg-melbourne.png" alt="" aria-hidden="true" fill priority sizes="100vw" />
+          <Image src="/assets/hero-bg-melbourne.webp" alt="" aria-hidden="true" fill priority sizes="100vw" />
         </div>
         <div className="container hero-inner">
           <div className="hero-copy">
@@ -122,7 +122,7 @@ export default function HomePage() {
       <section className="why section-light" id="why">
         <div className="container why-grid">
           <div className="why-photo reveal">
-            <Image src="/assets/airport-transfer-melbourne.png" alt="Melbourne Airport transfer" fill sizes="(max-width: 768px) 100vw, 50vw" />
+            <Image src="/assets/airport-transfer-melbourne.webp" alt="Melbourne Airport transfer" fill sizes="(max-width: 768px) 100vw, 50vw" />
             <div className="stat-banner">
               <span className="stat-val">4.9★</span>
               <span className="stat-lbl">Avg Google rating</span>

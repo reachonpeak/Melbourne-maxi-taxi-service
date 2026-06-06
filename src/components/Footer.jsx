@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="footer-top">
           <div>
             <Link className="brand" href="/">
-              <Image src="/assets/logo-white.png" alt="Melbourne Maxi Cab Service" width={1254} height={1254} />
+              <Image src="/assets/logo-white.webp" alt="Melbourne Maxi Cab Service" width={1254} height={1254} />
             </Link>
             <p className="footer-about">
               Trusted maxi cabs across Melbourne — airport, hotel, corporate, wedding and event

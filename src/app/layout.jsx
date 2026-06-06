@@ -33,43 +33,43 @@ export const metadata = {
     index: true,
     follow: true,
   },
-  openGraph: {
-    title: 'Melbourne Maxi Cab Service — Airport & Group Transfers 24/7',
-    description:
-      'Spacious maxi cabs across Melbourne. Airport, corporate, hotel, event & wedding transfers. Up to 13 passengers. Book 24/7.',
-    type: 'website',
-    url: '/',
-    siteName: 'Melbourne Maxi Cab Service',
-    locale: 'en_AU',
-    images: [
-      {
-        url: '/assets/hero-bg.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Melbourne Maxi Cab Service',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Melbourne Maxi Cab Service — Airport & Group Transfers 24/7',
-    description:
-      'Spacious maxi cabs across Melbourne. Airport, corporate, hotel, event & wedding transfers. Up to 13 passengers. Book 24/7.',
-    images: ['/assets/hero-bg.jpg'],
-  },
-};
+    openGraph: {
+      title: 'Melbourne Maxi Cab Service — Airport & Group Transfers 24/7',
+      description:
+        'Spacious maxi cabs across Melbourne. Airport, corporate, hotel, event & wedding transfers. Up to 13 passengers. Book 24/7.',
+      type: 'website',
+      url: '/',
+      siteName: 'Melbourne Maxi Cab Service',
+      locale: 'en_AU',
+      images: [
+        {
+          url: '/assets/hero-bg.webp',
+          width: 1200,
+          height: 630,
+          alt: 'Melbourne Maxi Cab Service',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Melbourne Maxi Cab Service — Airport & Group Transfers 24/7',
+      description:
+        'Spacious maxi cabs across Melbourne. Airport, corporate, hotel, event & wedding transfers. Up to 13 passengers. Book 24/7.',
+      images: ['/assets/hero-bg.webp'],
+    },
+  };
 
-export default function RootLayout({ children }) {
-  const businessId = `${SITE_URL}/#business`;
+  export default function RootLayout({ children }) {
+    const businessId = `${SITE_URL}/#business`;
 
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "TaxiService"],
-    "@id": businessId,
-    "name": SITE_NAME,
-    "description": "Professional maxi cab and group transportation services across Melbourne, Australia. Airport transfers, corporate travel, weddings, and events.",
-    "image": `${SITE_URL}/assets/logo-white.png`,
-    "logo": `${SITE_URL}/assets/logo-white.png`,
+    const organizationSchema = {
+      "@context": "https://schema.org",
+      "@type": ["LocalBusiness", "TaxiService"],
+      "@id": businessId,
+      "name": SITE_NAME,
+      "description": "Professional maxi cab and group transportation services across Melbourne, Australia. Airport transfers, corporate travel, weddings, and events.",
+      "image": `${SITE_URL}/assets/logo-white.webp`,
+      "logo": `${SITE_URL}/assets/logo-white.webp`,
     "url": SITE_URL,
     "telephone": PHONE,
     "email": EMAIL,
