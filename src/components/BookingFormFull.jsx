@@ -1,9 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function BookingFormFull() {
-  const router = useRouter();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -55,10 +53,21 @@ export default function BookingFormFull() {
         throw new Error(data.error || 'Something went wrong');
       }
 
-      // Conversion + lead events are fired once on the /thank-you page
-      // (centralized so both forms report consistently and we avoid double-counting).
       setSubmitted(true);
-      setTimeout(() => router.push('/thank-you'), 1000);
+      // Fire Google Ads conversion event on the same page (no redirect needed for Google Ads tracking).
+      // TODO: replace CONVERSION_LABEL with the label from your Google Ads conversion action
+      //       (Google Ads → Goals → Conversions → select your action → Tag setup → label string).
+      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-18217740838/CONVERSION_LABEL',
+          value: 1.0,
+          currency: 'AUD',
+        });
+        window.gtag('event', 'generate_lead', {
+          currency: 'AUD',
+          value: 1.0,
+        });
+      }
     } catch (err) {
       setError(err.message || 'Failed to submit booking. Please try again.');
     } finally {

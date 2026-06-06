@@ -40,7 +40,7 @@ export default function PhotoGallery() {
       <div className="photo-grid">
         {photos.map((p, i) => (
           <figure key={i} className={p.cls || ''} onClick={() => openLb(p.src, p.alt)}>
-            <Image src={p.src} alt={p.alt} fill sizes="(max-width: 768px) 50vw, 25vw" />
+            <Image src={p.src} alt={p.alt} width={800} height={800} sizes="(max-width: 768px) 50vw, 25vw" />
           </figure>
         ))}
       </div>

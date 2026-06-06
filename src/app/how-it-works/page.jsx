@@ -85,7 +85,7 @@ export default function HowItWorksPage() {
               </Link>
             </div>
             <div className="why-photo reveal d1">
-              <Image src="/assets/van.webp" alt="Melbourne Maxi Cab Service vehicle" fill sizes="(max-width: 768px) 100vw, 50vw" />
+              <Image src="/assets/van.webp" alt="Melbourne Maxi Cab Service vehicle" width={620} height={445} sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="stat-banner">
                 <span className="stat-val">10K+</span>
                 <span className="stat-lbl">Happy customers and counting</span>

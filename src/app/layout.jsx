@@ -6,9 +6,9 @@ import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import { SITE_URL, SITE_NAME, PHONE, EMAIL } from '@/lib/site';
 
-// TODO: replace these placeholders with your real analytics IDs before going live.
-const GA4_ID = 'G-XXXXXXXXXX';
-const GOOGLE_ADS_ID = 'AW-XXXXXXXXXX';
+// TODO: add your GA4 measurement ID here when ready (e.g. G-XXXXXXXXXX)
+const GA4_ID = null;
+const GOOGLE_ADS_ID = 'AW-18217740838';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -150,9 +150,9 @@ export const metadata = {
         />
       </head>
       <body className={jakarta.className}>
-        {/* Google tag (gtag.js) — replace placeholder IDs in GA4_ID / GOOGLE_ADS_ID above */}
+        {/* Google Ads tag — loads gtag.js and configures conversion tracking */}
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
           strategy="afterInteractive"
         />
         <Script id="gtag-init" strategy="afterInteractive">
@@ -160,8 +160,8 @@ export const metadata = {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${GA4_ID}');
             gtag('config', '${GOOGLE_ADS_ID}');
+            ${GA4_ID ? `gtag('config', '${GA4_ID}');` : ''}
           `}
         </Script>
         <ScrollReveal />

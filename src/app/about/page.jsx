@@ -25,7 +25,7 @@ export default function AboutPage() {
       <section className="section-light">
         <div className="container about-grid">
           <div className="about-photo reveal">
-            <Image src="/assets/Why-Choose-Pic-img1.webp" alt="Melbourne Maxi Cab Service team" fill sizes="(max-width: 768px) 100vw, 50vw" />
+            <Image src="/assets/Why-Choose-Pic-img1.webp" alt="Melbourne Maxi Cab Service team" width={1000} height={1000} sizes="(max-width: 768px) 100vw, 50vw" />
           </div>
           <div className="reveal d1">
             <span className="eyebrow">Who we are</span>

@@ -23,7 +23,7 @@ export default function HomePage() {
       {/* HERO */}
       <section className="hero" id="top">
         <div className="hero-bg">
-          <Image src="/assets/hero-bg-melbourne.webp" alt="" aria-hidden="true" fill priority sizes="100vw" />
+          <Image src="/assets/hero-bg-melbourne.webp" alt="" aria-hidden="true" width={1535} height={1024} priority sizes="100vw" />
         </div>
         <div className="container hero-inner">
           <div className="hero-copy">
@@ -122,7 +122,7 @@ export default function HomePage() {
       <section className="why section-light" id="why">
         <div className="container why-grid">
           <div className="why-photo reveal">
-            <Image src="/assets/airport-transfer-melbourne.webp" alt="Melbourne Airport transfer" fill sizes="(max-width: 768px) 100vw, 50vw" />
+            <Image src="/assets/airport-transfer-melbourne.webp" alt="Melbourne Airport transfer" width={1536} height={1024} sizes="(max-width: 768px) 100vw, 50vw" />
             <div className="stat-banner">
               <span className="stat-val">4.9★</span>
               <span className="stat-lbl">Avg Google rating</span>
@@ -206,7 +206,7 @@ export default function HomePage() {
       <section className="kids section-light" id="kids">
         <div className="container kids-grid">
           <div className="kids-photo reveal">
-            <Image src="/assets/Baby-seat-img3.webp" alt="Safety-compliant baby seat installed in a maxi cab" fill sizes="(max-width: 768px) 100vw, 50vw" />
+            <Image src="/assets/Baby-seat-img3.webp" alt="Safety-compliant baby seat installed in a maxi cab" width={1000} height={1000} sizes="(max-width: 768px) 100vw, 50vw" />
             <span className="tag">Family friendly</span>
           </div>
           <div className="reveal d1">
