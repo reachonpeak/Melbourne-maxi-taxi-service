@@ -1,14 +1,17 @@
 import CtaBanner from '@/components/CtaBanner';
 import ServiceCards from '@/components/ServiceCards';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
   title: 'Our Services — Melbourne Maxi Cab Service',
   description: 'Airport transfers, corporate rides, wedding cars, group travel and more. Melbourne Maxi Cab Service covers every journey across Melbourne 24/7.',
+  alternates: { canonical: '/services' },
 };
 
 export default function ServicesPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'Our Services', path: '/services' }]} />
       <div className="page-hero">
         <div className="container">
           <span className="eyebrow">What we do</span>

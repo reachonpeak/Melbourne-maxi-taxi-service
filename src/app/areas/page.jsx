@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import CtaBanner from '@/components/CtaBanner';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
   title: 'Areas We Serve — Melbourne Maxi Cab Service',
   description: 'We service all of greater Melbourne, including all suburbs, airports, hotels, and surrounding regions.',
+  alternates: { canonical: '/areas' },
 };
 
 const suburbs = [
@@ -18,6 +20,7 @@ const suburbs = [
 export default function AreasPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'Areas We Serve', path: '/areas' }]} />
       <div className="page-hero">
         <div className="container">
           <span className="eyebrow">Where we go</span>

@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
 
 const photos = [
@@ -39,7 +40,7 @@ export default function PhotoGallery() {
       <div className="photo-grid">
         {photos.map((p, i) => (
           <figure key={i} className={p.cls || ''} onClick={() => openLb(p.src, p.alt)}>
-            <img src={p.src} alt={p.alt} loading="lazy" />
+            <Image src={p.src} alt={p.alt} fill sizes="(max-width: 768px) 50vw, 25vw" />
           </figure>
         ))}
       </div>

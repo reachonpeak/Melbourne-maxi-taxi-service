@@ -1,9 +1,12 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import CtaBanner from '@/components/CtaBanner';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
   title: 'How It Works — Melbourne Maxi Cab Service',
   description: 'Booking a Melbourne maxi cab is simple. Three easy steps and your driver is on the way.',
+  alternates: { canonical: '/how-it-works' },
 };
 
 const steps = [
@@ -12,9 +15,28 @@ const steps = [
   { title: 'We come to you', desc: 'Your driver arrives on time, assists with luggage and gets you to your destination safely and comfortably. Flight monitoring included for airport pickups.' },
 ];
 
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to book a Melbourne maxi cab',
+  description: 'Book a Melbourne maxi cab in three simple steps and get a fixed-price quote in under a minute.',
+  totalTime: 'PT1M',
+  step: steps.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: s.title,
+    text: s.desc,
+  })),
+};
+
 export default function HowItWorksPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'How It Works', path: '/how-it-works' }]} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <div className="page-hero">
         <div className="container">
           <span className="eyebrow">Simple process</span>
@@ -63,7 +85,7 @@ export default function HowItWorksPage() {
               </Link>
             </div>
             <div className="why-photo reveal d1">
-              <img src="/assets/van.webp" alt="Melbourne Maxi Cab Service vehicle" />
+              <Image src="/assets/van.webp" alt="Melbourne Maxi Cab Service vehicle" fill sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="stat-banner">
                 <span className="stat-val">10K+</span>
                 <span className="stat-lbl">Happy customers and counting</span>

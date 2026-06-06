@@ -1,14 +1,17 @@
 import PhotoGallery from '@/components/PhotoGallery';
 import CtaBanner from '@/components/CtaBanner';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
   title: 'Gallery — Melbourne Maxi Cab Service',
   description: 'See our clean, modern maxi cabs in action across Melbourne. View our fleet gallery and comfortable interiors.',
+  alternates: { canonical: '/gallery' },
 };
 
 export default function GalleryPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'Gallery', path: '/gallery' }]} />
       <div className="page-hero">
         <div className="container">
           <span className="eyebrow">Photo gallery</span>

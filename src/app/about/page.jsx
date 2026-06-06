@@ -1,14 +1,18 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import CtaBanner from '@/components/CtaBanner';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
   title: 'About Us — Melbourne Maxi Cab Service',
   description: 'Melbourne Maxi Cab Service is your dependable travel partner across Melbourne. Airport transfers, corporate travel, hotel transfers, event & wedding transport, and parcel delivery.',
+  alternates: { canonical: '/about' },
 };
 
 export default function AboutPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'About Us', path: '/about' }]} />
       <div className="page-hero">
         <div className="container">
           <span className="eyebrow">About us</span>
@@ -21,7 +25,7 @@ export default function AboutPage() {
       <section className="section-light">
         <div className="container about-grid">
           <div className="about-photo reveal">
-            <img src="/assets/Why-Choose-Pic-img1.webp" alt="Melbourne Maxi Cab Service team" />
+            <Image src="/assets/Why-Choose-Pic-img1.webp" alt="Melbourne Maxi Cab Service team" fill sizes="(max-width: 768px) 100vw, 50vw" />
           </div>
           <div className="reveal d1">
             <span className="eyebrow">Who we are</span>

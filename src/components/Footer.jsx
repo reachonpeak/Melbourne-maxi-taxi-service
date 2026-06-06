@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -7,7 +8,7 @@ export default function Footer() {
         <div className="footer-top">
           <div>
             <Link className="brand" href="/">
-              <img src="/assets/logo-white.png" alt="Melbourne Maxi Cab Service" />
+              <Image src="/assets/logo-white.png" alt="Melbourne Maxi Cab Service" width={1254} height={1254} />
             </Link>
             <p className="footer-about">
               Trusted maxi cabs across Melbourne — airport, hotel, corporate, wedding and event
@@ -18,7 +19,7 @@ export default function Footer() {
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-2.9h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6v1.8H16l-.4 2.9h-2.1v7A10 10 0 0 0 22 12z" /></svg>
               </a>
               <a href="https://www.instagram.com/melbournemaxicab.au/" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="9" /><rect x="6" y="6" width="12" height="12" rx="3" /><circle cx="12" cy="12" r="3" /><circle cx="15.5" cy="8.5" r="0.75" fill="currentColor" /></svg>
               </a>
               <a href="https://www.linkedin.com/company/melbourne-maxi-cab-service/" target="_blank" rel="noopener" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z" /></svg>

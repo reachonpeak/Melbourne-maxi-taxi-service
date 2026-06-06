@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const SERVICES = [
   'Airport Transfer (Arrival)',
@@ -15,6 +16,7 @@ const SERVICES = [
 const initialState = { name: '', email: '', phone: '', service: '', date: '', message: '' };
 
 export default function ContactForm() {
+  const router = useRouter();
   const [form, setForm] = useState(initialState);
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
   const [errorMsg, setErrorMsg] = useState('');
@@ -38,6 +40,7 @@ export default function ContactForm() {
       if (!res.ok) throw new Error(data.error || 'Unknown error');
       setStatus('success');
       setForm(initialState);
+      setTimeout(() => router.push('/thank-you'), 500);
     } catch (err) {
       setStatus('error');
       setErrorMsg(err.message || 'Something went wrong. Please try again.');
@@ -54,14 +57,8 @@ export default function ContactForm() {
         </div>
         <h3 style={{ margin: '0 0 8px', color: 'var(--ink-light)', fontSize: '1.3rem', fontWeight: 800 }}>Message Sent!</h3>
         <p style={{ margin: 0, color: 'var(--ink-muted)', lineHeight: 1.6 }}>
-          Thanks for reaching out. We will get back to you within a few hours. For urgent bookings, please call us directly.
+          Redirecting to thank you page...
         </p>
-        <button
-          onClick={() => setStatus('idle')}
-          style={{ marginTop: 20, background: 'none', border: '1.5px solid var(--border)', borderRadius: 10, padding: '10px 20px', color: 'var(--ink-light)', fontWeight: 600, cursor: 'pointer', fontSize: '0.9rem' }}
-        >
-          Send another message
-        </button>
       </div>
     );
   }

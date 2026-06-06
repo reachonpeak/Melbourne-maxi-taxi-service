@@ -632,7 +632,7 @@ select.control{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xm
 .footer .contact svg{width:17px;height:17px;color:var(--accent);flex-shrink:0;margin-top:3px}
 .socials{display:flex;gap:9px;margin-top:20px}
 .socials a{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.06);display:grid;place-items:center;color:#fff;transition:.25s}
-.socials a:hover{background:var(--accent);transform:translateY(-2px)}
+.socials a:hover{background:var(--accent);color:#fff;transform:translateY(-2px)}
 .socials svg{width:17px;height:17px}
 .footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:24px;font-size:.84rem;color:rgba(255,255,255,.4)}
 

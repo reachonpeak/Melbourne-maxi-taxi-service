@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import TrustStrip from '@/components/TrustStrip';
 import BookingCardHero from '@/components/BookingCardHero';
 import BookingFormFull from '@/components/BookingFormFull';
@@ -22,7 +23,7 @@ export default function HomePage() {
       {/* HERO */}
       <section className="hero" id="top">
         <div className="hero-bg">
-          <img src="/assets/hero-bg-melbourne.png" alt="" aria-hidden="true" />
+          <Image src="/assets/hero-bg-melbourne.png" alt="" aria-hidden="true" fill priority sizes="100vw" />
         </div>
         <div className="container hero-inner">
           <div className="hero-copy">
@@ -121,7 +122,7 @@ export default function HomePage() {
       <section className="why section-light" id="why">
         <div className="container why-grid">
           <div className="why-photo reveal">
-            <img src="/assets/airport-transfer-melbourne.png" alt="Melbourne Airport transfer" loading="lazy" />
+            <Image src="/assets/airport-transfer-melbourne.png" alt="Melbourne Airport transfer" fill sizes="(max-width: 768px) 100vw, 50vw" />
             <div className="stat-banner">
               <span className="stat-val">4.9★</span>
               <span className="stat-lbl">Avg Google rating</span>
@@ -205,7 +206,7 @@ export default function HomePage() {
       <section className="kids section-light" id="kids">
         <div className="container kids-grid">
           <div className="kids-photo reveal">
-            <img src="/assets/Baby-seat-img3.webp" alt="Safety-compliant baby seat installed in a maxi cab" loading="lazy" />
+            <Image src="/assets/Baby-seat-img3.webp" alt="Safety-compliant baby seat installed in a maxi cab" fill sizes="(max-width: 768px) 100vw, 50vw" />
             <span className="tag">Family friendly</span>
           </div>
           <div className="reveal d1">

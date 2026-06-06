@@ -1,15 +1,19 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import CtaBanner from '@/components/CtaBanner';
 import WhyUs from '@/components/WhyUs';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
   title: 'Why Choose Us — Melbourne Maxi Cab Service',
   description: 'Licensed, insured, professional drivers. Fixed fares. 24/7 availability. Find out why Melbourne trusts us for every transfer.',
+  alternates: { canonical: '/why-us' },
 };
 
 export default function WhyUsPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'Why Choose Us', path: '/why-us' }]} />
       <div className="page-hero">
         <div className="container">
           <span className="eyebrow">Why choose us</span>
@@ -22,7 +26,7 @@ export default function WhyUsPage() {
         <div className="container">
           <div className="why-grid">
             <div className="why-photo reveal">
-              <img src="/assets/airport-transfer-melbourne.png" alt="Melbourne Maxi Cab Service airport transfer" />
+              <Image src="/assets/airport-transfer-melbourne.png" alt="Melbourne Maxi Cab Service airport transfer" fill sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="stat-banner">
                 <span className="stat-val">4.9★</span>
                 <span className="stat-lbl">Google rating (1,200+ reviews)</span>
@@ -46,7 +50,7 @@ export default function WhyUsPage() {
       <section className="kids section-light" id="kids">
         <div className="container kids-grid">
           <div className="kids-photo reveal">
-            <img src="/assets/Baby-seat-img3.webp" alt="Safety-compliant baby seat installed in a maxi cab" loading="lazy" />
+            <Image src="/assets/Baby-seat-img3.webp" alt="Safety-compliant baby seat installed in a maxi cab" fill sizes="(max-width: 768px) 100vw, 50vw" />
             <span className="tag">Family friendly</span>
           </div>
           <div className="reveal d1">

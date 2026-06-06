@@ -1,8 +1,14 @@
+import Script from 'next/script';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
+import { SITE_URL, SITE_NAME, PHONE, EMAIL } from '@/lib/site';
+
+// TODO: replace these placeholders with your real analytics IDs before going live.
+const GA4_ID = 'G-XXXXXXXXXX';
+const GOOGLE_ADS_ID = 'AW-XXXXXXXXXX';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -16,25 +22,148 @@ export const viewport = {
 };
 
 export const metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'Melbourne Maxi Cab Service — Airport & Group Transfers 24/7',
   description:
     'Melbourne maxi cab service for airport runs, groups up to 13 and citywide travel. Spacious, spotless vehicles 24/7 with professional local drivers, fixed fares and easy online booking.',
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: 'Melbourne Maxi Cab Service — Airport & Group Transfers 24/7',
     description:
       'Spacious maxi cabs across Melbourne. Airport, corporate, hotel, event & wedding transfers. Up to 13 passengers. Book 24/7.',
     type: 'website',
-    url: 'https://www.melbournemaxicabservice.au/',
+    url: '/',
+    siteName: 'Melbourne Maxi Cab Service',
+    locale: 'en_AU',
+    images: [
+      {
+        url: '/assets/hero-bg.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Melbourne Maxi Cab Service',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Melbourne Maxi Cab Service — Airport & Group Transfers 24/7',
+    description:
+      'Spacious maxi cabs across Melbourne. Airport, corporate, hotel, event & wedding transfers. Up to 13 passengers. Book 24/7.',
+    images: ['/assets/hero-bg.jpg'],
   },
 };
 
 export default function RootLayout({ children }) {
+  const businessId = `${SITE_URL}/#business`;
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "TaxiService"],
+    "@id": businessId,
+    "name": SITE_NAME,
+    "description": "Professional maxi cab and group transportation services across Melbourne, Australia. Airport transfers, corporate travel, weddings, and events.",
+    "image": `${SITE_URL}/assets/logo-white.png`,
+    "logo": `${SITE_URL}/assets/logo-white.png`,
+    "url": SITE_URL,
+    "telephone": PHONE,
+    "email": EMAIL,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Craigieburn",
+      "addressLocality": "Melbourne",
+      "addressRegion": "VIC",
+      "postalCode": "3064",
+      "addressCountry": "AU"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -37.5994,
+      "longitude": 144.9404
+    },
+    "areaServed": {
+      "@type": "State",
+      "name": "Victoria"
+    },
+    "priceRange": "$$",
+    "currenciesAccepted": "AUD",
+    "paymentAccepted": "Cash, Credit Card, EFTPOS",
+    "sameAs": [
+      "https://www.facebook.com/melbournemaxicabservice",
+      "https://wa.me/61455906197"
+    ],
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": "150"
+    }
+  };
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Maxi cab and airport transfer service",
+    "name": SITE_NAME,
+    "url": SITE_URL,
+    "provider": { "@id": businessId },
+    "areaServed": {
+      "@type": "State",
+      "name": "Victoria"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Maxi cab services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airport transfers" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corporate transfers" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Wedding & event transfers" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Group travel (up to 13 passengers)" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Parcel delivery" } }
+      ]
+    }
+  };
+
   return (
     <html lang="en-AU" className="js">
       <head>
         <link rel="icon" type="image/png" href="/assets/favicon.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        />
       </head>
       <body className={jakarta.className}>
+        {/* Google tag (gtag.js) — replace placeholder IDs in GA4_ID / GOOGLE_ADS_ID above */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA4_ID}');
+            gtag('config', '${GOOGLE_ADS_ID}');
+          `}
+        </Script>
         <ScrollReveal />
         <Header />
         <main>{children}</main>

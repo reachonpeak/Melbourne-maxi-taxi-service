@@ -1,14 +1,17 @@
 import Link from 'next/link';
 import ContactForm from '@/components/ContactForm';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
   title: 'Contact Us — Melbourne Maxi Cab Service',
   description: 'Get in touch with Melbourne Maxi Cab Service. Available 24/7 for phone bookings, queries, and airport transfer support.',
+  alternates: { canonical: '/contact' },
 };
 
 export default function ContactPage() {
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', path: '/' }, { name: 'Contact Us', path: '/contact' }]} />
       <div className="page-hero">
         <div className="container">
           <span className="eyebrow">Available 24/7</span>
