@@ -22,7 +22,7 @@ export default function WhyUsPage() {
         <div className="container">
           <div className="why-grid">
             <div className="why-photo reveal">
-              <img src="/assets/airport.webp" alt="Melbourne Maxi Cab Service airport transfer" />
+              <img src="/assets/airport-transfer-melbourne.png" alt="Melbourne Maxi Cab Service airport transfer" />
               <div className="stat-banner">
                 <span className="stat-val">4.9★</span>
                 <span className="stat-lbl">Google rating (1,200+ reviews)</span>
@@ -46,7 +46,7 @@ export default function WhyUsPage() {
       <section className="kids section-light" id="kids">
         <div className="container kids-grid">
           <div className="kids-photo reveal">
-            <img src="/assets/babyseat.webp" alt="Safety-compliant baby seat installed in a maxi cab" loading="lazy" />
+            <img src="/assets/Baby-seat-img3.webp" alt="Safety-compliant baby seat installed in a maxi cab" loading="lazy" />
             <span className="tag">Family friendly</span>
           </div>
           <div className="reveal d1">

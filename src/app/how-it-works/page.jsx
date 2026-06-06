@@ -35,7 +35,7 @@ export default function HowItWorksPage() {
             ))}
           </div>
 
-          <div style={{ marginTop: 'clamp(56px,7vw,90px)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(30px,5vw,64px)', alignItems: 'center' }}>
+          <div className="why-grid" style={{ marginTop: 'clamp(56px,7vw,90px)' }}>
             <div className="reveal">
               <span className="eyebrow">Why book with us</span>
               <h2 className="h2" style={{ color: 'var(--ink-light)', marginBottom: 24 }}>No surprises. Just a great ride.</h2>

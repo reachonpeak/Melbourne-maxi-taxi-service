@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ContactForm from '@/components/ContactForm';
 
 export const metadata = {
   title: 'Contact Us — Melbourne Maxi Cab Service',
@@ -83,20 +84,14 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Quick response note */}
-            <div className="reveal d1" style={{ background: 'var(--bg-soft)', border: '1px solid var(--border)', borderRadius: '24px', padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h3 className="h3" style={{ color: 'var(--ink-light)', marginBottom: '16px' }}>Need an Immediate Cab?</h3>
-              <p style={{ color: 'var(--ink-muted)', marginBottom: '30px', lineHeight: 1.6 }}>
-                For bookings in the next 2-3 hours, please call us directly or message us on WhatsApp for the fastest dispatch. We have drivers stationed across key Melbourne suburbs.
+            {/* Contact Form */}
+            <div className="reveal d1" style={{ background: 'var(--bg-light)', border: '1px solid var(--line-light)', borderRadius: '24px', padding: '40px' }}>
+              <span className="eyebrow">Send a message</span>
+              <h2 className="h3" style={{ color: 'var(--ink-light)', marginBottom: '8px' }}>Drop us a line</h2>
+              <p style={{ color: 'var(--ink-light-2)', marginBottom: '28px', fontSize: '0.95rem', lineHeight: 1.6 }}>
+                We typically respond within a few hours. For urgent bookings please call directly.
               </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <a className="btn btn-primary" href="tel:+61455906197" style={{ textAlign: 'center', justifyContent: 'center' }}>
-                  Call 0455 906 197
-                </a>
-                <Link className="btn btn-outline" href="/book" style={{ textAlign: 'center', justifyContent: 'center' }}>
-                  Book Online Form
-                </Link>
-              </div>
+              <ContactForm />
             </div>
 
           </div>

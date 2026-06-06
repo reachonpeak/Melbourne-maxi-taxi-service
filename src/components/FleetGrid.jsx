@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
 export const fleet = [
-  { img: '/assets/fleet-maxi11.webp', name: 'Maxi Van', models: 'Kia Carnival & Toyota HiAce', seats: 'Up to 13 passengers', luggage: 'Large luggage capacity', desc: 'Our flagship vehicle — ideal for airport runs with lots of luggage, group tours, events and family trips.' },
-  { img: '/assets/fleet-maxi7.webp', name: 'Maxi 7 Seater', models: 'Toyota Alphard & Kia Carnival', seats: 'Up to 7 passengers', luggage: 'Ample boot space', desc: 'Perfect for mid-size groups, corporate bookings and families needing extra space without a full maxi van.' },
-  { img: '/assets/fleet-suv.webp', name: 'Premium SUV', models: 'Toyota LandCruiser & Kluger', seats: '1–5 passengers', luggage: 'Standard luggage', desc: 'Premium ride for smaller groups or executive transfers. Comfortable, stylish and professionally driven.' },
-  { img: '/assets/fleet-sedan.webp', name: 'Executive Sedan', models: 'Toyota Camry & Aurion', seats: '1–4 passengers', luggage: 'Standard luggage', desc: 'Classic sedan for solo travellers and couples. Efficient, comfortable and always spotlessly clean.' },
+  { img: '/assets/fleet-maxi11.webp', name: 'Maxi 11 Seater', models: 'Toyota HiAce · Mercedes Sprinter · similar', seats: 'Up to 13 passengers', luggage: 'Large luggage capacity', desc: 'Our flagship vehicle — ideal for airport runs with lots of luggage, group tours, events and family trips.' },
+  { img: '/assets/fleet-maxi7.webp', name: 'Maxi 7 Seater', models: 'Kia Carnival · Hyundai Staria · similar', seats: 'Up to 7 passengers', luggage: 'Ample boot space', desc: 'Perfect for mid-size groups, corporate bookings and families needing extra space without a full maxi van.' },
+  { img: '/assets/fleet-suv.webp', name: 'Premium SUV', models: 'Toyota Kluger · Prado · similar', seats: '1–5 passengers', luggage: 'Standard luggage', desc: 'Premium ride for smaller groups or executive transfers. Comfortable, stylish and professionally driven.' },
+  { img: '/assets/fleet-sedan.webp', name: 'Executive Sedan', models: 'Toyota Camry · similar', seats: '1–4 passengers', luggage: 'Standard luggage', desc: 'Classic sedan for solo travellers and couples. Efficient, comfortable and always spotlessly clean.' },
 ];
 
 export default function FleetGrid() {

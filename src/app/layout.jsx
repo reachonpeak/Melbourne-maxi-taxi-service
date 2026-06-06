@@ -2,7 +2,6 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import MobileBar from '@/components/MobileBar';
 import ScrollReveal from '@/components/ScrollReveal';
 
 const jakarta = Plus_Jakarta_Sans({
@@ -40,7 +39,6 @@ export default function RootLayout({ children }) {
         <Header />
         <main>{children}</main>
         <Footer />
-        <MobileBar />
         {/* WhatsApp FAB */}
         <a
           className="fab"

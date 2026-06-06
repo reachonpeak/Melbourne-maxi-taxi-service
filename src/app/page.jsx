@@ -5,6 +5,7 @@ import BookingFormFull from '@/components/BookingFormFull';
 import ServiceCards from '@/components/ServiceCards';
 import HowItWorks from '@/components/HowItWorks';
 import FleetGrid from '@/components/FleetGrid';
+import FleetSlider from '@/components/FleetSlider';
 import WhyUs from '@/components/WhyUs';
 import PhotoGallery from '@/components/PhotoGallery';
 import FaqAccordion from '@/components/FaqAccordion';
@@ -21,7 +22,7 @@ export default function HomePage() {
       {/* HERO */}
       <section className="hero" id="top">
         <div className="hero-bg">
-          <img src="/assets/hero-bg.png" alt="" aria-hidden="true" />
+          <img src="/assets/hero-bg-melbourne.png" alt="" aria-hidden="true" />
         </div>
         <div className="container hero-inner">
           <div className="hero-copy">
@@ -112,7 +113,7 @@ export default function HomePage() {
             <h2 className="h2">Vehicles for every group size</h2>
             <p>From a solo airport run to a 13-seat group transfer — pick the right fit.</p>
           </div>
-          <FleetGrid />
+          <FleetSlider />
         </div>
       </section>
 
@@ -120,7 +121,7 @@ export default function HomePage() {
       <section className="why section-light" id="why">
         <div className="container why-grid">
           <div className="why-photo reveal">
-            <img src="/assets/airport.webp" alt="Melbourne Airport transfer" loading="lazy" />
+            <img src="/assets/airport-transfer-melbourne.png" alt="Melbourne Airport transfer" loading="lazy" />
             <div className="stat-banner">
               <span className="stat-val">4.9★</span>
               <span className="stat-lbl">Avg Google rating</span>
@@ -204,7 +205,7 @@ export default function HomePage() {
       <section className="kids section-light" id="kids">
         <div className="container kids-grid">
           <div className="kids-photo reveal">
-            <img src="/assets/babyseat.webp" alt="Safety-compliant baby seat installed in a maxi cab" loading="lazy" />
+            <img src="/assets/Baby-seat-img3.webp" alt="Safety-compliant baby seat installed in a maxi cab" loading="lazy" />
             <span className="tag">Family friendly</span>
           </div>
           <div className="reveal d1">

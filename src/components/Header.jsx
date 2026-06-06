@@ -27,6 +27,7 @@ export default function Header() {
   };
 
   const navLinks = [
+    { href: '/about', label: 'About' },
     { href: '/services', label: 'Services' },
     { href: '/how-it-works', label: 'How it works' },
     { href: '/fleet', label: 'Fleet' },
@@ -73,6 +74,19 @@ export default function Header() {
 
       {/* Mobile Drawer */}
       <aside className={`drawer${menuOpen ? ' open' : ''}`} aria-hidden={!menuOpen}>
+        <div className="drawer-logo">
+          <img src="/assets/logo.png" alt="Melbourne Maxi Cab Service" />
+        </div>
+        <button
+          className="drawer-close"
+          onClick={toggleMenu}
+          aria-label="Close menu"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="15" height="15">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
         {navLinks.map((l) => (
           <Link key={l.href} href={l.href} onClick={toggleMenu}>{l.label}</Link>
         ))}
