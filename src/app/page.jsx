@@ -79,6 +79,18 @@ export default function HomePage() {
         <TrustStrip />
       </section>
 
+      {/* FLEET */}
+      <section className="fleet section-alt-light" id="fleet">
+        <div className="container">
+          <div className="sec-head center reveal">
+            <span className="eyebrow">Our fleet</span>
+            <h2 className="h2">Vehicles for every group size</h2>
+            <p>From a solo airport run to a 13-seat group transfer — pick the right fit.</p>
+          </div>
+          <FleetSlider />
+        </div>
+      </section>
+
       {/* BOOKING FORM FULL */}
       <BookingFormFull />
 
@@ -106,20 +118,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FLEET */}
-      <section className="fleet section-alt-light" id="fleet">
-        <div className="container">
-          <div className="sec-head center reveal">
-            <span className="eyebrow">Our fleet</span>
-            <h2 className="h2">Vehicles for every group size</h2>
-            <p>From a solo airport run to a 13-seat group transfer — pick the right fit.</p>
-          </div>
-          <FleetSlider />
-        </div>
-      </section>
-
       {/* WHY CHOOSE US */}
-      <section className="why section-light" id="why">
+      <section className="why section-alt-light" id="why">
         <div className="container why-grid">
           <div className="why-photo reveal">
             <Image src="/assets/airport-transfer-melbourne.webp" alt="Melbourne Airport transfer" width={1536} height={1024} sizes="(max-width: 768px) 100vw, 50vw" />
@@ -138,7 +138,7 @@ export default function HomePage() {
       </section>
 
       {/* GALLERY */}
-      <section className="gallery section-alt-light" id="gallery">
+      <section className="gallery section-light" id="gallery">
         <div className="container">
           <div className="sec-head center reveal">
             <span className="eyebrow">Gallery</span>
@@ -149,7 +149,7 @@ export default function HomePage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="testimonials section-light" id="reviews">
+      <section className="testimonials section-alt-light" id="reviews">
         <div className="container">
           <div className="sec-head center reveal">
             <span className="eyebrow">Customer reviews</span>
@@ -183,7 +183,7 @@ export default function HomePage() {
       </section>
 
       {/* AREAS WE SERVE */}
-      <section className="areas section-alt-light" id="areas">
+      <section className="areas section-light" id="areas">
         <div className="container areas-grid">
           <div className="reveal">
             <span className="eyebrow">Where we go</span>
@@ -203,7 +203,7 @@ export default function HomePage() {
       </section>
 
       {/* KIDS */}
-      <section className="kids section-light" id="kids">
+      <section className="kids section-alt-light" id="kids">
         <div className="container kids-grid">
           <div className="kids-photo reveal">
             <Image src="/assets/Baby-seat-img3.webp" alt="Safety-compliant baby seat installed in a maxi cab" width={1000} height={1000} sizes="(max-width: 768px) 100vw, 50vw" />
@@ -224,7 +224,7 @@ export default function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section className="faq-sec section-alt-light" id="faq">
+      <section className="faq-sec section-light" id="faq">
         <div className="container">
           <div className="sec-head center reveal">
             <span className="eyebrow">FAQ</span>
