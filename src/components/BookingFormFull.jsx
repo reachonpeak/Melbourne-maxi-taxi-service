@@ -1,29 +1,81 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { PHONE, PHONE_DISPLAY } from '@/lib/site';
+
+const initialValues = {
+  pickup: '',
+  dropoff: '',
+  date: '',
+  time: '',
+  pax: '1 Passenger',
+  vehicle: 'Maxi Van (Up to 13 seats)',
+  baby: 'No',
+  returnTrip: 'No',
+  cname: '',
+  cphone: '',
+  notes: '',
+};
 
 export default function BookingFormFull() {
+  const [values, setValues] = useState(initialValues);
+  const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [minDate, setMinDate] = useState('');
 
   useEffect(() => {
-    const d = document.getElementById('date');
-    if (d) {
-      const t = new Date().toISOString().split('T')[0];
-      d.min = t;
-      d.value = t;
-    }
+    const today = new Date().toISOString().split('T')[0];
+    setMinDate(today);
+    setValues(prev => ({ ...prev, date: today }));
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!values.pickup.trim()) {
+      newErrors.pickup = 'Pickup location is required';
+    }
+    if (!values.dropoff.trim()) {
+      newErrors.dropoff = 'Drop-off location is required';
+    }
+    if (!values.date) {
+      newErrors.date = 'Date is required';
+    } else if (values.date < minDate) {
+      newErrors.date = 'Date cannot be in the past';
+    }
+    if (!values.time) {
+      newErrors.time = 'Time is required';
+    }
+    if (!values.cname.trim()) {
+      newErrors.cname = 'Your name is required';
+    } else if (values.cname.trim().length < 2) {
+      newErrors.cname = 'Name must be at least 2 characters';
+    }
+
+    if (!values.cphone.trim()) {
+      newErrors.cphone = 'Phone number is required';
+    } else {
+      const digits = values.cphone.replace(/[^0-9]/g, '');
+      if (digits.length < 8 || digits.length > 15) {
+        newErrors.cphone = 'Please enter a valid phone number (between 8 and 15 digits)';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const v = (n) => { const el = form.elements[n]; return el ? el.value.trim() : ''; };
-    const radio = (n) => { const el = form.querySelector(`input[name="${n}"]:checked`); return el ? el.value : ''; };
-    const req = ['pickup', 'dropoff', 'date', 'time', 'cname', 'cphone'];
-    let ok = true;
-    req.forEach((n) => { const el = form.elements[n]; if (el && !el.value.trim()) { el.reportValidity(); ok = false; } });
-    if (!ok) return;
+    if (!validate()) return;
 
     setLoading(true);
     setError('');
@@ -33,17 +85,17 @@ export default function BookingFormFull() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: v('cname'),
-          phone: v('cphone'),
-          pickup: v('pickup'),
-          dropoff: v('dropoff'),
-          date: v('date'),
-          time: v('time'),
-          passengers: v('pax'),
-          vehicle: v('vehicle'),
-          babySeat: radio('baby'),
-          returnTrip: radio('return'),
-          notes: v('notes'),
+          name: values.cname,
+          phone: values.cphone,
+          pickup: values.pickup,
+          dropoff: values.dropoff,
+          date: values.date,
+          time: values.time,
+          passengers: values.pax,
+          vehicle: values.vehicle,
+          babySeat: values.baby,
+          returnTrip: values.returnTrip,
+          notes: values.notes,
         }),
       });
 
@@ -54,9 +106,8 @@ export default function BookingFormFull() {
       }
 
       setSubmitted(true);
-      // Fire Google Ads conversion event on the same page (no redirect needed for Google Ads tracking).
-      // TODO: replace CONVERSION_LABEL with the label from your Google Ads conversion action
-      //       (Google Ads → Goals → Conversions → select your action → Tag setup → label string).
+      setValues(initialValues);
+
       if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
         window.gtag('event', 'conversion', {
           send_to: 'AW-18217740838/CONVERSION_LABEL',
@@ -76,6 +127,9 @@ export default function BookingFormFull() {
   };
 
   const handleBookAnother = () => {
+    const today = new Date().toISOString().split('T')[0];
+    setValues({ ...initialValues, date: today });
+    setErrors({});
     setSubmitted(false);
     setError('');
   };
@@ -115,7 +169,7 @@ export default function BookingFormFull() {
                   </div>
                   <div className="success-detail-item">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    <span>Need help? Call <a href="tel:+61455906197" style={{ color: 'var(--accent)', fontWeight: 700 }}>0455 906 197</a></span>
+                    <span>Need help? Call <a href={`tel:${PHONE}`} style={{ color: 'var(--accent)', fontWeight: 700 }}>{PHONE_DISPLAY}</a></span>
                   </div>
                 </div>
                 <button type="button" className="btn btn-primary btn-lg" onClick={handleBookAnother} style={{ marginTop: 28 }}>
@@ -129,23 +183,64 @@ export default function BookingFormFull() {
             <form className="form-grid" id="bookingForm" noValidate onSubmit={handleSubmit}>
               <div className="field c2">
                 <label htmlFor="pickup">Pickup location <span className="r">*</span></label>
-                <input className="control" id="pickup" name="pickup" placeholder="e.g. Melbourne Airport" required />
+                <input
+                  className="control"
+                  id="pickup"
+                  name="pickup"
+                  placeholder="e.g. Melbourne Airport"
+                  required
+                  value={values.pickup}
+                  onChange={handleChange}
+                  style={errors.pickup ? { borderColor: '#dc2626', boxShadow: '0 0 0 1px rgba(220, 38, 38, 0.2)' } : {}}
+                />
+                {errors.pickup && <span style={{ color: '#dc2626', fontSize: '0.8rem', fontWeight: 600, marginTop: '4px', display: 'block' }}>{errors.pickup}</span>}
               </div>
               <div className="field c2">
                 <label htmlFor="dropoff">Drop-off location <span className="r">*</span></label>
-                <input className="control" id="dropoff" name="dropoff" placeholder="e.g. Crown Hotel, Melbourne" required />
+                <input
+                  className="control"
+                  id="dropoff"
+                  name="dropoff"
+                  placeholder="e.g. Crown Hotel, Melbourne"
+                  required
+                  value={values.dropoff}
+                  onChange={handleChange}
+                  style={errors.dropoff ? { borderColor: '#dc2626', boxShadow: '0 0 0 1px rgba(220, 38, 38, 0.2)' } : {}}
+                />
+                {errors.dropoff && <span style={{ color: '#dc2626', fontSize: '0.8rem', fontWeight: 600, marginTop: '4px', display: 'block' }}>{errors.dropoff}</span>}
               </div>
               <div className="field">
                 <label htmlFor="date">Date <span className="r">*</span></label>
-                <input className="control" id="date" name="date" type="date" required />
+                <input
+                  className="control"
+                  id="date"
+                  name="date"
+                  type="date"
+                  required
+                  value={values.date}
+                  onChange={handleChange}
+                  min={minDate}
+                  style={errors.date ? { borderColor: '#dc2626', boxShadow: '0 0 0 1px rgba(220, 38, 38, 0.2)' } : {}}
+                />
+                {errors.date && <span style={{ color: '#dc2626', fontSize: '0.8rem', fontWeight: 600, marginTop: '4px', display: 'block' }}>{errors.date}</span>}
               </div>
               <div className="field">
                 <label htmlFor="time">Time <span className="r">*</span></label>
-                <input className="control" id="time" name="time" type="time" required />
+                <input
+                  className="control"
+                  id="time"
+                  name="time"
+                  type="time"
+                  required
+                  value={values.time}
+                  onChange={handleChange}
+                  style={errors.time ? { borderColor: '#dc2626', boxShadow: '0 0 0 1px rgba(220, 38, 38, 0.2)' } : {}}
+                />
+                {errors.time && <span style={{ color: '#dc2626', fontSize: '0.8rem', fontWeight: 600, marginTop: '4px', display: 'block' }}>{errors.time}</span>}
               </div>
               <div className="field">
                 <label htmlFor="pax">Passengers</label>
-                <select className="control" id="pax" name="pax">
+                <select className="control" id="pax" name="pax" value={values.pax} onChange={handleChange}>
                   {[...Array(13)].map((_, i) => (
                     <option key={i + 1}>{i + 1} {i === 0 ? 'Passenger' : 'Passengers'}</option>
                   ))}
@@ -153,7 +248,7 @@ export default function BookingFormFull() {
               </div>
               <div className="field">
                 <label htmlFor="vehicle">Vehicle type</label>
-                <select className="control" id="vehicle" name="vehicle">
+                <select className="control" id="vehicle" name="vehicle" value={values.vehicle} onChange={handleChange}>
                   <option>Maxi Van (Up to 13 seats)</option>
                   <option>Maxi 7 Seater</option>
                   <option>SUV (1-5 passengers)</option>
@@ -163,29 +258,59 @@ export default function BookingFormFull() {
               <div className="field c2">
                 <label>Baby / booster seat?</label>
                 <div className="seg">
-                  <label><input type="radio" name="baby" value="No" defaultChecked /><span className="opt">No thanks</span></label>
-                  <label><input type="radio" name="baby" value="Baby seat" /><span className="opt">Baby seat</span></label>
-                  <label><input type="radio" name="baby" value="Booster" /><span className="opt">Booster</span></label>
+                  <label><input type="radio" name="baby" value="No" checked={values.baby === 'No'} onChange={handleChange} /><span className="opt">No thanks</span></label>
+                  <label><input type="radio" name="baby" value="Baby seat" checked={values.baby === 'Baby seat'} onChange={handleChange} /><span className="opt">Baby seat</span></label>
+                  <label><input type="radio" name="baby" value="Booster" checked={values.baby === 'Booster'} onChange={handleChange} /><span className="opt">Booster</span></label>
                 </div>
               </div>
               <div className="field c2">
                 <label>Return trip?</label>
                 <div className="seg">
-                  <label><input type="radio" name="return" value="No" defaultChecked /><span className="opt">One way</span></label>
-                  <label><input type="radio" name="return" value="Yes" /><span className="opt">Return</span></label>
+                  <label><input type="radio" name="returnTrip" value="No" checked={values.returnTrip === 'No'} onChange={handleChange} /><span className="opt">One way</span></label>
+                  <label><input type="radio" name="returnTrip" value="Yes" checked={values.returnTrip === 'Yes'} onChange={handleChange} /><span className="opt">Return</span></label>
                 </div>
               </div>
               <div className="field c2">
                 <label htmlFor="cname">Your name <span className="r">*</span></label>
-                <input className="control" id="cname" name="cname" placeholder="Full name" required />
+                <input
+                  className="control"
+                  id="cname"
+                  name="cname"
+                  placeholder="Full name"
+                  required
+                  value={values.cname}
+                  onChange={handleChange}
+                  style={errors.cname ? { borderColor: '#dc2626', boxShadow: '0 0 0 1px rgba(220, 38, 38, 0.2)' } : {}}
+                />
+                {errors.cname && <span style={{ color: '#dc2626', fontSize: '0.8rem', fontWeight: 600, marginTop: '4px', display: 'block' }}>{errors.cname}</span>}
               </div>
               <div className="field c2">
                 <label htmlFor="cphone">Phone number <span className="r">*</span></label>
-                <input className="control" id="cphone" name="cphone" type="tel" placeholder="+61 4xx xxx xxx" required />
+                <input
+                  className="control"
+                  id="cphone"
+                  name="cphone"
+                  type="text"
+                  placeholder="+61 4xx xxx xxx"
+                  required
+                  value={values.cphone}
+                  onChange={handleChange}
+                  style={errors.cphone ? { borderColor: '#dc2626', boxShadow: '0 0 0 1px rgba(220, 38, 38, 0.2)' } : {}}
+                />
+                {errors.cphone && <span style={{ color: '#dc2626', fontSize: '0.8rem', fontWeight: 600, marginTop: '4px', display: 'block' }}>{errors.cphone}</span>}
               </div>
               <div className="field c4">
                 <label htmlFor="notes">Additional notes</label>
-                <textarea className="control" id="notes" name="notes" rows="3" placeholder="Flight number, special requests, luggage details…" style={{ resize: 'vertical' }} />
+                <textarea
+                  className="control"
+                  id="notes"
+                  name="notes"
+                  rows="3"
+                  placeholder="Flight number, special requests, luggage details…"
+                  style={{ resize: 'vertical' }}
+                  value={values.notes}
+                  onChange={handleChange}
+                />
               </div>
               {error && (
                 <div className="field c4">

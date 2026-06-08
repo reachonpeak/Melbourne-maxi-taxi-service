@@ -18,17 +18,61 @@ const initialState = { name: '', email: '', phone: '', service: '', date: '', me
 export default function ContactForm() {
   const router = useRouter();
   const [form, setForm] = useState(initialState);
+  const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
   const [errorMsg, setErrorMsg] = useState('');
 
+  function validate() {
+    const newErrors = {};
+    if (!form.name.trim()) {
+      newErrors.name = 'Full name is required';
+    } else if (form.name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!form.email.trim()) {
+      newErrors.email = 'Email address is required';
+    } else if (!emailRegex.test(form.email.trim())) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!form.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else {
+      const digits = form.phone.replace(/[^0-9]/g, '');
+      if (digits.length < 8 || digits.length > 15) {
+        newErrors.phone = 'Please enter a valid phone number (between 8 and 15 digits)';
+      }
+    }
+
+    if (!form.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (form.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+
   function handleChange(e) {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setStatus('loading');
     setErrorMsg('');
+
+    if (!validate()) {
+      return;
+    }
+
+    setStatus('loading');
 
     try {
       const res = await fetch('/api/contact', {
@@ -76,8 +120,13 @@ export default function ContactForm() {
             value={form.name}
             onChange={handleChange}
             required
-            style={styles.input}
+            style={{
+              ...styles.input,
+              borderColor: errors.name ? '#dc2626' : 'var(--border, #e2e8f0)',
+              boxShadow: errors.name ? '0 0 0 1px rgba(220, 38, 38, 0.2)' : 'none'
+            }}
           />
+          {errors.name && <span style={styles.errorText}>{errors.name}</span>}
         </div>
         <div style={styles.fieldWrap}>
           <label style={styles.label}>Email Address <span style={styles.req}>*</span></label>
@@ -88,8 +137,13 @@ export default function ContactForm() {
             value={form.email}
             onChange={handleChange}
             required
-            style={styles.input}
+            style={{
+              ...styles.input,
+              borderColor: errors.email ? '#dc2626' : 'var(--border, #e2e8f0)',
+              boxShadow: errors.email ? '0 0 0 1px rgba(220, 38, 38, 0.2)' : 'none'
+            }}
           />
+          {errors.email && <span style={styles.errorText}>{errors.email}</span>}
         </div>
       </div>
 
@@ -98,13 +152,18 @@ export default function ContactForm() {
           <label style={styles.label}>Phone Number <span style={styles.req}>*</span></label>
           <input
             name="phone"
-            type="tel"
+            type="text"
             placeholder="04XX XXX XXX"
             value={form.phone}
             onChange={handleChange}
             required
-            style={styles.input}
+            style={{
+              ...styles.input,
+              borderColor: errors.phone ? '#dc2626' : 'var(--border, #e2e8f0)',
+              boxShadow: errors.phone ? '0 0 0 1px rgba(220, 38, 38, 0.2)' : 'none'
+            }}
           />
+          {errors.phone && <span style={styles.errorText}>{errors.phone}</span>}
         </div>
         <div style={styles.fieldWrap}>
           <label style={styles.label}>Service Type</label>
@@ -141,8 +200,15 @@ export default function ContactForm() {
           value={form.message}
           onChange={handleChange}
           required
-          style={{ ...styles.input, resize: 'vertical', minHeight: 130 }}
+          style={{
+            ...styles.input,
+            resize: 'vertical',
+            minHeight: 130,
+            borderColor: errors.message ? '#dc2626' : 'var(--border, #e2e8f0)',
+            boxShadow: errors.message ? '0 0 0 1px rgba(220, 38, 38, 0.2)' : 'none'
+          }}
         />
+        {errors.message && <span style={styles.errorText}>{errors.message}</span>}
       </div>
 
       {status === 'error' && (
@@ -274,5 +340,11 @@ const styles = {
     borderTopColor: '#fff',
     borderRadius: '50%',
     animation: 'spin 0.7s linear infinite',
+  },
+  errorText: {
+    color: '#dc2626',
+    fontSize: '0.8rem',
+    fontWeight: 600,
+    marginTop: -2,
   },
 };

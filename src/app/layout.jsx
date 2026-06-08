@@ -4,7 +4,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
-import { SITE_URL, SITE_NAME, PHONE, EMAIL } from '@/lib/site';
+import { SITE_URL, SITE_NAME, PHONE, EMAIL, WHATSAPP_URL } from '@/lib/site';
 
 // TODO: add your GA4 measurement ID here when ready (e.g. G-XXXXXXXXXX)
 const GA4_ID = null;
@@ -95,7 +95,7 @@ export const metadata = {
     "paymentAccepted": "Cash, Credit Card, EFTPOS",
     "sameAs": [
       "https://www.facebook.com/melbournemaxicabservice",
-      "https://wa.me/61455906197"
+      WHATSAPP_URL
     ],
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
@@ -171,7 +171,7 @@ export const metadata = {
         {/* WhatsApp FAB */}
         <a
           className="fab"
-          href="https://wa.me/61455906197"
+          href={WHATSAPP_URL}
           target="_blank"
           rel="noopener"
           aria-label="WhatsApp"

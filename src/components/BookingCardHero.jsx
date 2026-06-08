@@ -1,18 +1,42 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { WHATSAPP_URL } from '@/lib/site';
 
 export default function BookingCardHero() {
+  const [dropoff, setDropoff] = useState('');
+  const [datetime, setDatetime] = useState('');
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
-    const hdt = document.getElementById('hero-datetime');
-    if (hdt) {
-      const now = new Date();
-      now.setMinutes(now.getMinutes() + 30);
-      hdt.value = now.toISOString().slice(0, 16);
-    }
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 30);
+    setDatetime(now.toISOString().slice(0, 16));
   }, []);
+
+  const validate = () => {
+    const newErrors = {};
+    if (!dropoff.trim()) {
+      newErrors.dropoff = 'Drop-off location is required';
+    }
+
+    if (!datetime) {
+      newErrors.datetime = 'Date and time is required';
+    } else {
+      const selected = new Date(datetime);
+      const now = new Date();
+      if (selected < now) {
+        newErrors.datetime = 'Please select a future date and time';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validate()) return;
+
     const fd = new FormData(e.target);
     const lines = [
       'Quick Quote Request — Melbourne Maxi Cab', '',
@@ -23,7 +47,7 @@ export default function BookingCardHero() {
       'Vehicle: ' + (fd.get('vehicle') || ''),
     ];
     window.open(
-      'https://wa.me/61455906197?text=' + encodeURIComponent(lines.join('\n')),
+      WHATSAPP_URL + '?text=' + encodeURIComponent(lines.join('\n')),
       '_blank', 'noopener'
     );
   };
@@ -50,7 +74,19 @@ export default function BookingCardHero() {
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l4-4h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v10l-2 6z"/></svg>
             Drop-off location
           </label>
-          <input className="book-control" type="text" name="dropoff" placeholder="Enter drop-off location" />
+          <input
+            className="book-control"
+            type="text"
+            name="dropoff"
+            placeholder="Enter drop-off location"
+            value={dropoff}
+            onChange={(e) => { setDropoff(e.target.value); if (errors.dropoff) setErrors(prev => ({ ...prev, dropoff: '' })); }}
+            style={{
+              borderColor: errors.dropoff ? '#dc2626' : '',
+              boxShadow: errors.dropoff ? '0 0 0 1px rgba(220, 38, 38, 0.2)' : ''
+            }}
+          />
+          {errors.dropoff && <span style={{ color: '#ff4d4d', fontSize: '0.8rem', fontWeight: 600, marginTop: '4px', display: 'block' }}>{errors.dropoff}</span>}
         </div>
         <div className="book-row">
           <div className="book-field">
@@ -69,7 +105,19 @@ export default function BookingCardHero() {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
               Date &amp; time
             </label>
-            <input className="book-control" type="datetime-local" name="datetime" id="hero-datetime" />
+            <input
+              className="book-control"
+              type="datetime-local"
+              name="datetime"
+              id="hero-datetime"
+              value={datetime}
+              onChange={(e) => { setDatetime(e.target.value); if (errors.datetime) setErrors(prev => ({ ...prev, datetime: '' })); }}
+              style={{
+                borderColor: errors.datetime ? '#dc2626' : '',
+                boxShadow: errors.datetime ? '0 0 0 1px rgba(220, 38, 38, 0.2)' : ''
+              }}
+            />
+            {errors.datetime && <span style={{ color: '#ff4d4d', fontSize: '0.8rem', fontWeight: 600, marginTop: '4px', display: 'block' }}>{errors.datetime}</span>}
           </div>
         </div>
         <div className="book-field">

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { PHONE, PHONE_DISPLAY, WHATSAPP_URL } from '@/lib/site';
 
 export default function ThankYouPage() {
   const router = useRouter();
@@ -94,7 +95,7 @@ export default function ThankYouPage() {
                 lineHeight: 1.6,
                 margin: 0,
               }}>
-                Our team is reviewing your message and will respond within a few hours. For urgent bookings, please call us directly at <a href="tel:+61455906197" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>0455 906 197</a>.
+                Our team is reviewing your message and will respond within a few hours. For urgent bookings, please call us directly at <a href={`tel:${PHONE}`} style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>{PHONE_DISPLAY}</a>.
               </p>
             </div>
 
@@ -178,21 +179,21 @@ export default function ThankYouPage() {
                 flexDirection: 'column',
                 gap: 10,
               }}>
-                <a href="tel:+61455906197" style={{
+                <a href={`tel:${PHONE}`} style={{
                   color: 'var(--accent)',
                   textDecoration: 'none',
                   fontWeight: 700,
                   fontSize: '1.05rem',
                 }}>
-                  📞 Call: 0455 906 197
+                  📞 Call: {PHONE_DISPLAY}
                 </a>
-                <a href="https://wa.me/61455906197" target="_blank" rel="noopener noreferrer" style={{
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" style={{
                   color: '#25D366',
                   textDecoration: 'none',
                   fontWeight: 700,
                   fontSize: '1.05rem',
                 }}>
-                  💬 WhatsApp: +61 455 906 197
+                  💬 WhatsApp: {PHONE_DISPLAY}
                 </a>
               </div>
             </div>

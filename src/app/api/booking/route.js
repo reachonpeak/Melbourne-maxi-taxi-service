@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { EMAIL, PHONE, PHONE_DISPLAY } from '@/lib/site';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -169,9 +170,9 @@ function buildBookingHtml({ name, phone, pickup, dropoff, date, time, passengers
           <td style="background:#0a0a0a;padding:24px 40px;text-align:center;">
             <p style="margin:0;color:rgba(255,255,255,0.35);font-size:12px;line-height:1.6;">
               Melbourne Maxi Cab Service &nbsp;·&nbsp; Craigieburn, Melbourne VIC<br/>
-              <a href="tel:+61455906197" style="color:#f26522;text-decoration:none;">0455 906 197</a>
+              <a href="tel:${PHONE}" style="color:#f26522;text-decoration:none;">${PHONE_DISPLAY}</a>
               &nbsp;·&nbsp;
-              <a href="mailto:melbournemaxicabservice@gmail.com" style="color:#f26522;text-decoration:none;">melbournemaxicabservice@gmail.com</a>
+              <a href="mailto:${EMAIL}" style="color:#f26522;text-decoration:none;">${EMAIL}</a>
             </p>
           </td>
         </tr>
@@ -193,9 +194,14 @@ export async function POST(request) {
       return Response.json({ error: 'Missing required fields.' }, { status: 400 });
     }
 
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+      console.error('SMTP Error: GMAIL_USER or GMAIL_APP_PASSWORD is not set in environment variables.');
+      return Response.json({ error: 'Mail server configuration error. Please check your .env.local file.' }, { status: 500 });
+    }
+
     await transporter.sendMail({
       from: `"Melbourne Maxi Cab Booking" <${process.env.GMAIL_USER}>`,
-      to: 'melbournemaxicabservice@gmail.com',
+      to: EMAIL,
       subject: `🚖 New Booking: ${pickup} → ${dropoff} — ${name}`,
       html: buildBookingHtml({ name, phone, pickup, dropoff, date, time, passengers, vehicle, babySeat, returnTrip, notes }),
     });
