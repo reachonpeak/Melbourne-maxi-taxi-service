@@ -5,7 +5,7 @@ import WhyUs from '@/components/WhyUs';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
-  title: 'Why Choose Us — Maxi Melbourne Cab Service',
+  title: 'Why Choose Us — MelbourneMaxiTaxi',
   description: 'Licensed, insured, professional drivers. Fixed fares. 24/7 availability. Find out why Melbourne trusts us for every transfer.',
   alternates: { canonical: '/why-us' },
 };
@@ -26,7 +26,7 @@ export default function WhyUsPage() {
         <div className="container">
           <div className="why-grid">
             <div className="why-photo reveal">
-              <Image src="/assets/airport-transfer-melbourne.webp" alt="Maxi Melbourne Cab Service airport transfer" width={1536} height={1024} sizes="(max-width: 768px) 100vw, 50vw" />
+              <Image src="/assets/airport-transfer-melbourne.webp" alt="MelbourneMaxiTaxi airport transfer" width={1536} height={1024} sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="stat-banner">
                 <span className="stat-val">4.9★</span>
                 <span className="stat-lbl">Google rating (1,200+ reviews)</span>

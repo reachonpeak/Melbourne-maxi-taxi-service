@@ -4,8 +4,8 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import { EMAIL, PHONE, PHONE_DISPLAY, WHATSAPP_URL } from '@/lib/site';
 
 export const metadata = {
-  title: 'Contact Us — Maxi Melbourne Cab Service',
-  description: 'Get in touch with Maxi Melbourne Cab Service. Available 24/7 for phone bookings, queries, and airport transfer support.',
+  title: 'Contact Us — MelbourneMaxiTaxi',
+  description: 'Get in touch with MelbourneMaxiTaxi. Available 24/7 for phone bookings, queries, and airport transfer support.',
   alternates: { canonical: '/contact' },
 };
 

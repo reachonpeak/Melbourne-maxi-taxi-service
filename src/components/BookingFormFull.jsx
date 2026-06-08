@@ -172,7 +172,7 @@ export default function BookingFormFull() {
                   </svg>
                 </div>
                 <h3>Booking Submitted Successfully!</h3>
-                <p>Thank you for choosing Maxi Melbourne Cab Service. Your booking details have been received and our team will confirm your ride shortly.</p>
+                <p>Thank you for choosing MelbourneMaxiTaxi. Your booking details have been received and our team will confirm your ride shortly.</p>
                 <div className="success-details">
                   <div className="success-detail-item">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>

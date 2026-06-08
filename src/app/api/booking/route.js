@@ -21,7 +21,7 @@ function buildBookingHtml({ name, phone, pickup, dropoff, date, time, passengers
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>New Booking — Melbourne Maxi Cab</title>
+<title>New Booking — MelbourneMaxiTaxi</title>
 </head>
 <body style="margin:0;padding:0;background:#f1f5f9;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:40px 16px;">
@@ -35,7 +35,7 @@ function buildBookingHtml({ name, phone, pickup, dropoff, date, time, passengers
             <div style="display:inline-block;background:#f26522;border-radius:8px;padding:6px 14px;margin-bottom:16px;">
               <span style="color:#fff;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;">🚖 New Booking</span>
             </div>
-            <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;">Maxi Melbourne Cab Service</h1>
+            <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;">MelbourneMaxiTaxi</h1>
             <p style="margin:8px 0 0;color:rgba(255,255,255,0.55);font-size:14px;">A new ride has been booked through the website</p>
           </td>
         </tr>
@@ -169,7 +169,7 @@ function buildBookingHtml({ name, phone, pickup, dropoff, date, time, passengers
         <tr>
           <td style="background:#0a0a0a;padding:24px 40px;text-align:center;">
             <p style="margin:0;color:rgba(255,255,255,0.35);font-size:12px;line-height:1.6;">
-              Maxi Melbourne Cab Service &nbsp;·&nbsp; Craigieburn, Melbourne VIC<br/>
+              MelbourneMaxiTaxi &nbsp;·&nbsp; Craigieburn, Melbourne VIC<br/>
               <a href="tel:${PHONE}" style="color:#f26522;text-decoration:none;">${PHONE_DISPLAY}</a>
               &nbsp;·&nbsp;
               <a href="mailto:${EMAIL}" style="color:#f26522;text-decoration:none;">${EMAIL}</a>
@@ -206,7 +206,7 @@ export async function POST(request) {
     }
 
     await transporter.sendMail({
-      from: `"Melbourne Maxi Cab Booking" <${process.env.GMAIL_USER}>`,
+      from: `"MelbourneMaxiTaxi Booking" <${process.env.GMAIL_USER}>`,
       to: EMAIL,
       subject: `🚖 New Booking: ${pickup} → ${dropoff} — ${name}`,
       html: buildBookingHtml({ name, phone, pickup, dropoff, date, time, passengers, vehicle, babySeat, returnTrip, notes }),

@@ -13,8 +13,8 @@ import FaqAccordion from '@/components/FaqAccordion';
 import CtaBanner from '@/components/CtaBanner';
 
 export const metadata = {
-  title: 'Maxi Melbourne Cab Service — Airport & Group Transfers 24/7',
-  description: 'Maxi Melbourne cab service for airport runs, groups up to 13 and citywide travel. Spacious, spotless vehicles 24/7 with professional local drivers and fixed fares.',
+  title: 'MelbourneMaxiTaxi — Airport & Group Transfers 24/7',
+  description: 'MelbourneMaxiTaxi for airport runs, groups up to 13 and citywide travel. Spacious, spotless vehicles 24/7 with professional local drivers and fixed fares.',
 };
 
 export default function HomePage() {
@@ -27,7 +27,7 @@ export default function HomePage() {
         </div>
         <div className="container hero-inner">
           <div className="hero-copy">
-            <span className="eyebrow reveal">Melbourne Maxi Cabs</span>
+            <span className="eyebrow reveal">MelbourneMaxiTaxis</span>
             <h1 className="h1 reveal d1">
               <span className="line">Airport rides.</span>
               <span className="line">Group travel.</span>
@@ -129,7 +129,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="reveal d1">
-            <span className="eyebrow">Why Melbourne Maxi Cab</span>
+            <span className="eyebrow">Why MelbourneMaxiTaxi</span>
             <h2 className="h2">The trusted choice for Melbourne travellers</h2>
             <p className="lead">Every trip is backed by professional drivers, maintained vehicles and a promise of fair, fixed pricing — no surprises.</p>
             <WhyUs />

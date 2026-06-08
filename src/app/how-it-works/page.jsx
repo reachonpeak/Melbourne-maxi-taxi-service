@@ -4,7 +4,7 @@ import CtaBanner from '@/components/CtaBanner';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
-  title: 'How It Works — Maxi Melbourne Cab Service',
+  title: 'How It Works — MelbourneMaxiTaxi',
   description: 'Booking a Melbourne maxi cab is simple. Three easy steps and your driver is on the way.',
   alternates: { canonical: '/how-it-works' },
 };
@@ -85,7 +85,7 @@ export default function HowItWorksPage() {
               </Link>
             </div>
             <div className="why-photo reveal d1">
-              <Image src="/assets/van.webp" alt="Maxi Melbourne Cab Service vehicle" width={620} height={445} sizes="(max-width: 768px) 100vw, 50vw" />
+              <Image src="/assets/van.webp" alt="MelbourneMaxiTaxi vehicle" width={620} height={445} sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="stat-banner">
                 <span className="stat-val">10K+</span>
                 <span className="stat-lbl">Happy customers and counting</span>

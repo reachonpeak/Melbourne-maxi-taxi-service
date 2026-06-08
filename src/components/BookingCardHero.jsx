@@ -39,7 +39,7 @@ export default function BookingCardHero() {
 
     const fd = new FormData(e.target);
     const lines = [
-      'Quick Quote Request — Melbourne Maxi Cab', '',
+      'Quick Quote Request — MelbourneMaxiTaxi', '',
       'Pickup: ' + (fd.get('pickup') || ''),
       'Drop-off: ' + (fd.get('dropoff') || ''),
       'Date/Time: ' + (fd.get('datetime') || ''),

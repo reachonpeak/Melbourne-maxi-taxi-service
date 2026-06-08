@@ -41,8 +41,8 @@ export default function Header() {
     <>
       <header className={`site-header${scrolled ? ' scrolled' : ''}`} id="header">
         <div className="container nav">
-          <Link className="brand" href="/" aria-label="Maxi Melbourne Cab Service">
-            <Image src="/assets/logo.webp" alt="Maxi Melbourne Cab Service" width={1254} height={1254} priority />
+          <Link className="brand" href="/" aria-label="MelbourneMaxiTaxi">
+            <Image src="/assets/logo.webp" alt="MelbourneMaxiTaxi" width={1254} height={1254} priority />
           </Link>
           <nav className="nav-links" aria-label="Primary">
             {navLinks.map((l) => (
@@ -77,7 +77,7 @@ export default function Header() {
       {/* Mobile Drawer */}
       <aside className={`drawer${menuOpen ? ' open' : ''}`} aria-hidden={!menuOpen}>
         <div className="drawer-logo">
-          <Image src="/assets/logo.webp" alt="Maxi Melbourne Cab Service" width={1254} height={1254} />
+          <Image src="/assets/logo.webp" alt="MelbourneMaxiTaxi" width={1254} height={1254} />
         </div>
         <button
           className="drawer-close"

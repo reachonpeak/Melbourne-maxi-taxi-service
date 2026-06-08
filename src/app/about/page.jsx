@@ -4,8 +4,8 @@ import CtaBanner from '@/components/CtaBanner';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
-  title: 'About Us — Maxi Melbourne Cab Service',
-  description: 'Maxi Melbourne Cab Service is your dependable travel partner across Melbourne. Airport transfers, corporate travel, hotel transfers, event & wedding transport, and parcel delivery.',
+  title: 'About Us — MelbourneMaxiTaxi',
+  description: 'MelbourneMaxiTaxi is your dependable travel partner across Melbourne. Airport transfers, corporate travel, hotel transfers, event & wedding transport, and parcel delivery.',
   alternates: { canonical: '/about' },
 };
 
@@ -25,14 +25,14 @@ export default function AboutPage() {
       <section className="section-light">
         <div className="container about-grid">
           <div className="about-photo reveal">
-            <Image src="/assets/Why-Choose-Pic-img1.webp" alt="Maxi Melbourne Cab Service team" width={1000} height={1000} sizes="(max-width: 768px) 100vw, 50vw" />
+            <Image src="/assets/Why-Choose-Pic-img1.webp" alt="MelbourneMaxiTaxi team" width={1000} height={1000} sizes="(max-width: 768px) 100vw, 50vw" />
           </div>
           <div className="reveal d1">
             <span className="eyebrow">Who we are</span>
             <h2 className="h2" style={{ color: 'var(--ink-light)', marginBottom: 12 }}>Melbourne's Trusted Maxi Cab Service Provider</h2>
-            <p>At Maxi Melbourne Cab Service, we're more than just a taxi company—we're your dependable travel partner across Melbourne. With years of experience in the transport industry, we proudly offer a wide range of services including airport transfers, corporate travel, hotel transfers, event and wedding transport, and even secure parcel delivery.</p>
+            <p>At MelbourneMaxiTaxi, we're more than just a taxi company—we're your dependable travel partner across Melbourne. With years of experience in the transport industry, we proudly offer a wide range of services including airport transfers, corporate travel, hotel transfers, event and wedding transport, and even secure parcel delivery.</p>
             <p>Our mission is to make every ride smooth, timely, and stress-free. We operate with a strong focus on professionalism, customer satisfaction, and safety. Whether you're a solo traveller, a family, or a corporate group, we provide clean, spacious, and well-maintained maxi cabs driven by courteous, experienced drivers.</p>
-            <p>From everyday travel to special events, we go the extra mile to ensure your journey is as comfortable as your destination is important. Choose Maxi Melbourne Cab Service for dependable, flexible, and high-quality transport solutions throughout Melbourne.</p>
+            <p>From everyday travel to special events, we go the extra mile to ensure your journey is as comfortable as your destination is important. Choose MelbourneMaxiTaxi for dependable, flexible, and high-quality transport solutions throughout Melbourne.</p>
           </div>
         </div>
       </section>

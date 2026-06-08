@@ -2,7 +2,7 @@ import BookingFormFull from '@/components/BookingFormFull';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
-  title: 'Book Online — Maxi Melbourne Cab Service',
+  title: 'Book Online — MelbourneMaxiTaxi',
   description: 'Book your Melbourne maxi cab online. Fast, secure, fixed pricing, and instant confirmation via WhatsApp.',
   alternates: { canonical: '/book' },
 };

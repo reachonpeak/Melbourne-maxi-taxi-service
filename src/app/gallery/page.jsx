@@ -3,7 +3,7 @@ import CtaBanner from '@/components/CtaBanner';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
-  title: 'Gallery — Maxi Melbourne Cab Service',
+  title: 'Gallery — MelbourneMaxiTaxi',
   description: 'See our clean, modern maxi cabs in action across Melbourne. View our fleet gallery and comfortable interiors.',
   alternates: { canonical: '/gallery' },
 };

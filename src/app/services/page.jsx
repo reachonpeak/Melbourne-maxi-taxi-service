@@ -3,8 +3,8 @@ import ServiceCards from '@/components/ServiceCards';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
-  title: 'Our Services — Maxi Melbourne Cab Service',
-  description: 'Airport transfers, corporate rides, wedding cars, group travel and more. Maxi Melbourne Cab Service covers every journey across Melbourne 24/7.',
+  title: 'Our Services — MelbourneMaxiTaxi',
+  description: 'Airport transfers, corporate rides, wedding cars, group travel and more. MelbourneMaxiTaxi covers every journey across Melbourne 24/7.',
   alternates: { canonical: '/services' },
 };
 

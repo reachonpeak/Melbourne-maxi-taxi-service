@@ -2,7 +2,7 @@ import FaqAccordion from '@/components/FaqAccordion';
 import CtaBanner from '@/components/CtaBanner';
 
 export const metadata = {
-  title: 'FAQ — Maxi Melbourne Cab Service',
+  title: 'FAQ — MelbourneMaxiTaxi',
   description: 'Frequently asked questions about Melbourne maxi cab fares, airport pickups, baby seats, and booking options.',
   alternates: { canonical: '/faq' },
 };
