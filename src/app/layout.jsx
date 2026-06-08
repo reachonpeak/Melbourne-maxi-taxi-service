@@ -23,9 +23,9 @@ export const viewport = {
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'Melbourne Maxi Cab Service — Airport & Group Transfers 24/7',
+  title: 'Maxi Melbourne Cab Service — Airport & Group Transfers 24/7',
   description:
-    'Melbourne maxi cab service for airport runs, groups up to 13 and citywide travel. Spacious, spotless vehicles 24/7 with professional local drivers, fixed fares and easy online booking.',
+    'Maxi Melbourne cab service for airport runs, groups up to 13 and citywide travel. Spacious, spotless vehicles 24/7 with professional local drivers, fixed fares and easy online booking.',
   alternates: {
     canonical: '/',
   },
@@ -34,25 +34,25 @@ export const metadata = {
     follow: true,
   },
     openGraph: {
-      title: 'Melbourne Maxi Cab Service — Airport & Group Transfers 24/7',
+      title: 'Maxi Melbourne Cab Service — Airport & Group Transfers 24/7',
       description:
         'Spacious maxi cabs across Melbourne. Airport, corporate, hotel, event & wedding transfers. Up to 13 passengers. Book 24/7.',
       type: 'website',
       url: '/',
-      siteName: 'Melbourne Maxi Cab Service',
+      siteName: 'Maxi Melbourne Cab Service',
       locale: 'en_AU',
       images: [
         {
           url: '/assets/hero-bg.webp',
           width: 1200,
           height: 630,
-          alt: 'Melbourne Maxi Cab Service',
+          alt: 'Maxi Melbourne Cab Service',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Melbourne Maxi Cab Service — Airport & Group Transfers 24/7',
+      title: 'Maxi Melbourne Cab Service — Airport & Group Transfers 24/7',
       description:
         'Spacious maxi cabs across Melbourne. Airport, corporate, hotel, event & wedding transfers. Up to 13 passengers. Book 24/7.',
       images: ['/assets/hero-bg.webp'],

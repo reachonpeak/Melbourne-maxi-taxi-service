@@ -13,8 +13,8 @@ import FaqAccordion from '@/components/FaqAccordion';
 import CtaBanner from '@/components/CtaBanner';
 
 export const metadata = {
-  title: 'Melbourne Maxi Cab Service — Airport & Group Transfers 24/7',
-  description: 'Melbourne maxi cab service for airport runs, groups up to 13 and citywide travel. Spacious, spotless vehicles 24/7 with professional local drivers and fixed fares.',
+  title: 'Maxi Melbourne Cab Service — Airport & Group Transfers 24/7',
+  description: 'Maxi Melbourne cab service for airport runs, groups up to 13 and citywide travel. Spacious, spotless vehicles 24/7 with professional local drivers and fixed fares.',
 };
 
 export default function HomePage() {

@@ -3,7 +3,7 @@ import CtaBanner from '@/components/CtaBanner';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
-  title: 'Areas We Serve — Melbourne Maxi Cab Service',
+  title: 'Areas We Serve — Maxi Melbourne Cab Service',
   description: 'We service all of greater Melbourne, including all suburbs, airports, hotels, and surrounding regions.',
   alternates: { canonical: '/areas' },
 };

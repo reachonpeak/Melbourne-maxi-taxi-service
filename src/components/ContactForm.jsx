@@ -13,7 +13,7 @@ const SERVICES = [
   'Other',
 ];
 
-const initialState = { name: '', email: '', phone: '', service: '', date: '', message: '' };
+const initialState = { name: '', email: '', phone: '', service: '', date: '', message: '', website: '' };
 
 export default function ContactForm() {
   const router = useRouter();
@@ -58,7 +58,8 @@ export default function ContactForm() {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    const filteredValue = name === 'phone' ? value.replace(/[^0-9\s+\-()]/g, '') : value;
+    setForm(prev => ({ ...prev, [name]: filteredValue }));
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -69,6 +70,14 @@ export default function ContactForm() {
     setErrorMsg('');
 
     if (!validate()) {
+      return;
+    }
+
+    // Honeypot check to block automated spam submissions
+    if (form.website) {
+      setStatus('success');
+      setForm(initialState);
+      setTimeout(() => router.push('/thank-you'), 500);
       return;
     }
 
@@ -209,6 +218,20 @@ export default function ContactForm() {
           }}
         />
         {errors.message && <span style={styles.errorText}>{errors.message}</span>}
+      </div>
+
+      {/* Honeypot field (hidden from users, bot trap) */}
+      <div style={{ display: 'none' }} aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          value={form.website}
+          onChange={handleChange}
+          tabIndex="-1"
+          autoComplete="off"
+        />
       </div>
 
       {status === 'error' && (

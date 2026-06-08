@@ -35,7 +35,7 @@ function buildBookingHtml({ name, phone, pickup, dropoff, date, time, passengers
             <div style="display:inline-block;background:#f26522;border-radius:8px;padding:6px 14px;margin-bottom:16px;">
               <span style="color:#fff;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;">🚖 New Booking</span>
             </div>
-            <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;">Melbourne Maxi Cab Service</h1>
+            <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;">Maxi Melbourne Cab Service</h1>
             <p style="margin:8px 0 0;color:rgba(255,255,255,0.55);font-size:14px;">A new ride has been booked through the website</p>
           </td>
         </tr>
@@ -169,7 +169,7 @@ function buildBookingHtml({ name, phone, pickup, dropoff, date, time, passengers
         <tr>
           <td style="background:#0a0a0a;padding:24px 40px;text-align:center;">
             <p style="margin:0;color:rgba(255,255,255,0.35);font-size:12px;line-height:1.6;">
-              Melbourne Maxi Cab Service &nbsp;·&nbsp; Craigieburn, Melbourne VIC<br/>
+              Maxi Melbourne Cab Service &nbsp;·&nbsp; Craigieburn, Melbourne VIC<br/>
               <a href="tel:${PHONE}" style="color:#f26522;text-decoration:none;">${PHONE_DISPLAY}</a>
               &nbsp;·&nbsp;
               <a href="mailto:${EMAIL}" style="color:#f26522;text-decoration:none;">${EMAIL}</a>
@@ -188,7 +188,13 @@ function buildBookingHtml({ name, phone, pickup, dropoff, date, time, passengers
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { name, phone, pickup, dropoff, date, time, passengers, vehicle, babySeat, returnTrip, notes } = body;
+    const { name, phone, pickup, dropoff, date, time, passengers, vehicle, babySeat, returnTrip, notes, website } = body;
+
+    // Server-side Honeypot Check: Silently ignore spam bots
+    if (website) {
+      console.warn('Spam submission filtered via booking form honeypot.');
+      return Response.json({ success: true });
+    }
 
     if (!name || !phone || !pickup || !dropoff || !date || !time) {
       return Response.json({ error: 'Missing required fields.' }, { status: 400 });

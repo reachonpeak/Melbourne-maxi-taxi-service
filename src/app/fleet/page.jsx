@@ -3,7 +3,7 @@ import FleetGrid from '@/components/FleetGrid';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 
 export const metadata = {
-  title: 'Our Fleet — Melbourne Maxi Cab Service',
+  title: 'Our Fleet — Maxi Melbourne Cab Service',
   description: 'Choose from our spacious maxi vans, 7-seaters, SUVs and sedans. All vehicles are clean, modern and professionally maintained.',
   alternates: { canonical: '/fleet' },
 };

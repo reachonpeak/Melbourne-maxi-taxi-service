@@ -14,6 +14,7 @@ const initialValues = {
   cname: '',
   cphone: '',
   notes: '',
+  website: '',
 };
 
 export default function BookingFormFull() {
@@ -32,7 +33,8 @@ export default function BookingFormFull() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setValues(prev => ({ ...prev, [name]: value }));
+    const filteredValue = name === 'cphone' ? value.replace(/[^0-9\s+\-()]/g, '') : value;
+    setValues(prev => ({ ...prev, [name]: filteredValue }));
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -77,6 +79,14 @@ export default function BookingFormFull() {
     e.preventDefault();
     if (!validate()) return;
 
+    // Honeypot check to block automated spam submissions
+    if (values.website) {
+      setSubmitted(true);
+      const today = new Date().toISOString().split('T')[0];
+      setValues({ ...initialValues, date: today });
+      return;
+    }
+
     setLoading(true);
     setError('');
 
@@ -96,6 +106,7 @@ export default function BookingFormFull() {
           babySeat: values.baby,
           returnTrip: values.returnTrip,
           notes: values.notes,
+          website: values.website,
         }),
       });
 
@@ -161,7 +172,7 @@ export default function BookingFormFull() {
                   </svg>
                 </div>
                 <h3>Booking Submitted Successfully!</h3>
-                <p>Thank you for choosing Melbourne Maxi Cab Service. Your booking details have been received and our team will confirm your ride shortly.</p>
+                <p>Thank you for choosing Maxi Melbourne Cab Service. Your booking details have been received and our team will confirm your ride shortly.</p>
                 <div className="success-details">
                   <div className="success-detail-item">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -312,6 +323,20 @@ export default function BookingFormFull() {
                   onChange={handleChange}
                 />
               </div>
+              {/* Honeypot field (hidden from users, bot trap) */}
+              <div style={{ display: 'none' }} aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  name="website"
+                  type="text"
+                  value={values.website}
+                  onChange={handleChange}
+                  tabIndex="-1"
+                  autoComplete="off"
+                />
+              </div>
+
               {error && (
                 <div className="field c4">
                   <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 10, padding: '12px 16px', color: '#dc2626', fontWeight: 600, fontSize: '.92rem' }}>
