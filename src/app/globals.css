@@ -801,3 +801,32 @@ select.control{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xm
 @media(max-width:680px){
   .about-features{grid-template-columns:1fr}
 }
+
+/* Region Cards (Service Areas Page) */
+.region-card {
+  background: var(--card-light);
+  border: 1.5px solid var(--line-light-2);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 6px 6px 0px rgba(16,22,34,0.02);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.region-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 10px 10px 0px rgba(242,101,34,0.05);
+  border-color: var(--accent);
+}
+.region-card .icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(242, 101, 34, 0.06);
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  transition: all 0.2s ease;
+}
+.region-card:hover .icon-wrap {
+  background: var(--accent);
+  color: #ffffff;
+}

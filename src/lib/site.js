@@ -5,4 +5,4 @@ export const SITE_NAME = 'MelbourneMaxiTaxi';
 export const PHONE = '+61437953433';
 export const PHONE_DISPLAY = '0437 953 433';
 export const WHATSAPP_URL = 'https://wa.me/61437953433';
-export const EMAIL = 'maximelbourne167@gmail.com';
+export const EMAIL = 'melbournemaxi666@gmail.com';

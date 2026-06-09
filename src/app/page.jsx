@@ -195,7 +195,17 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="chips reveal d1">
-            {['Berwick', 'Box Hill', 'Brighton', 'Bundoora', 'Camberwell', 'Caroline Springs', 'Chadstone', 'Coburg', 'Craigieburn', 'Dandenong', 'Doncaster', 'Essendon', 'Footscray', 'Frankston', 'Glen Waverley', 'Hawthorn', 'Keysborough', 'Melton', 'Narre Warren', 'Point Cook', 'Preston', 'Reservoir', 'Richmond', 'Ringwood', 'Southbank', 'St Kilda', 'Tullamarine', 'Werribee'].map((s, i) => (
+            {[
+              'Bayside Area', 'Berwick', 'Box Hill', 'Brighton', 'Bundoora', 'Camberwell',
+              'Caroline Springs', 'Chadstone', 'City of Glen Eira', 'City of Monash',
+              'City of Stonnington', 'Clyde', 'Coburg', 'Craigieburn', 'Cranbourne',
+              'Dandenong', 'Doncaster', 'Eastern Area', 'Essendon', 'Footscray',
+              'Frankston', 'Glen Waverley', 'Hampton Park', 'Hawthorn', 'Keysborough',
+              'Kingston City', 'Melbourne CBD', 'Melton', 'Mornington Peninsula',
+              'Narre Warren', 'Officer', 'Pakenham', 'Point Cook', 'Port Phillip Area',
+              'Preston', 'Reservoir', 'Richmond', 'Ringwood', 'South Eastern Area',
+              'Southbank', 'St Kilda', 'Tullamarine', 'Werribee'
+            ].map((s, i) => (
               <span key={i} className="chip">{s}</span>
             ))}
           </div>
