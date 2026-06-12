@@ -1,9 +1,19 @@
 /* Admin panel styles — isolated from the public site */
 
+/* ── Reset inherited public-site constraints ── */
+html:has(.admin-shell),
+body:has(.admin-shell) {
+  margin: 0;
+  padding: 0 !important;
+  overflow-x: hidden;
+  background: #f1f5f9;
+}
+
 /* ── Layout ── */
 .admin-shell {
   display: flex;
   min-height: 100vh;
+  width: 100%;
   background: #f1f5f9;
 }
 
@@ -108,8 +118,8 @@
 
 /* ── Pages ── */
 .admin-page {
-  padding: 32px 28px;
-  max-width: 1100px;
+  padding: 32px 36px;
+  width: 100%;
 }
 
 .admin-page-title {
@@ -395,6 +405,87 @@
 .admin-type-booking { background: rgba(242,101,34,0.1); color: #c2410c; }
 .admin-type-contact { background: rgba(100,116,139,0.1); color: #475569; }
 
+/* ── Leads responsive layout ── */
+/* Desktop: show table, hide cards */
+.admin-leads-desktop { display: block; }
+.admin-leads-cards   { display: none; }
+
+/* ── Lead Cards (mobile) ── */
+.admin-lead-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-lead-card:hover {
+  border-color: #f26522;
+  box-shadow: 0 4px 16px rgba(242,101,34,0.1);
+  transform: translateY(-1px);
+}
+
+.alc-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.alc-date {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+.alc-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.alc-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.alc-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #f26522;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.alc-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #475569;
+  font-size: 0.82rem;
+  word-break: break-all;
+}
+
+.alc-tap-hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+
+
 /* ── Modal ── */
 .admin-modal-overlay {
   position: fixed;
@@ -408,6 +499,14 @@
   overflow-y: auto;
 }
 
+@media (max-width: 680px) {
+  .admin-modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+    overflow-y: hidden;
+  }
+}
+
 .admin-modal-panel {
   background: #fff;
   border-radius: 16px;
@@ -416,6 +515,7 @@
   box-shadow: 0 8px 48px rgba(0,0,0,0.18);
   overflow: hidden;
 }
+
 
 .admin-modal-header {
   display: flex;
@@ -509,6 +609,200 @@
   border-color: #f26522;
   box-shadow: 0 0 0 2px rgba(242,101,34,0.15);
 }
+
+/* ══════════════════════════════════════════════
+   Lead Detail Modal — compact redesign (ldm-*)
+   ══════════════════════════════════════════════ */
+.ldm-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+/* Header */
+.ldm-header {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.ldm-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ldm-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ldm-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.ldm-type-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.ldm-type-badge[data-type="booking"] { background: rgba(242,101,34,0.1); color: #c2410c; }
+.ldm-type-badge[data-type="contact"] { background: rgba(100,116,139,0.1); color: #475569; }
+
+.ldm-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ldm-status-select {
+  background: var(--sc-bg, rgba(245,158,11,0.1));
+  color: var(--sc-color, #b45309);
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  text-transform: capitalize;
+}
+
+.ldm-date {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* Scrollable body */
+.ldm-body {
+  overflow-y: auto;
+  padding: 14px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+/* Section */
+.ldm-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ldm-section-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Info grid — 2 columns by default */
+.ldm-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ldm-info-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* Full-width item spans both columns */
+.ldm-info-full {
+  grid-column: span 2;
+}
+
+.ldm-info-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ldm-info-value {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #0f172a;
+  word-break: break-word;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ldm-info-phone {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #f26522;
+  text-decoration: none;
+}
+
+.ldm-verified-chip {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(22,163,74,0.1);
+  color: #166534;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+.ldm-unverified-chip {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(245,158,11,0.1);
+  color: #b45309;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+/* Mobile: tighten up further */
+@media (max-width: 480px) {
+  .ldm-panel {
+    max-height: 100vh;
+    border-radius: 16px 16px 0 0;
+    align-self: flex-end;
+    margin-top: auto;
+    width: 100%;
+  }
+
+  .ldm-info-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .ldm-body {
+    padding: 12px 14px 24px;
+    gap: 14px;
+  }
+
+  .ldm-header {
+    padding: 14px 14px 10px;
+  }
+}
+
 
 /* ── Login page ── */
 .admin-login-wrapper {
@@ -830,6 +1124,15 @@
   .admin-page {
     padding: 20px 16px;
   }
+
+  /* Flip table → cards on mobile */
+  .admin-leads-desktop { display: none !important; }
+  .admin-leads-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
 
   .admin-section {
     padding: 16px;
