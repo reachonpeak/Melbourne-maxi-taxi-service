@@ -4,6 +4,7 @@ import { useLeads } from '@/hooks/useAdminData';
 import LeadsFilter from '@/components/admin/LeadsFilter';
 import LeadsTable from '@/components/admin/LeadsTable';
 import LeadDetailModal from '@/components/admin/LeadDetailModal';
+import { LeadsSkeleton } from '@/components/admin/AdminSkeleton';
 
 export default function LeadsPage() {
   const { leads, loading, error, updateStatus } = useLeads();
@@ -25,7 +26,7 @@ export default function LeadsPage() {
     setSelectedLead((prev) => (prev?.id === id ? { ...prev, status } : prev));
   };
 
-  if (loading) return <div className="admin-page-loading">Loading leads…</div>;
+  if (loading) return <LeadsSkeleton />;
   if (error) return <div className="admin-page-error">Error: {error}</div>;
 
   return (

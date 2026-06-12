@@ -28,7 +28,10 @@ export default function AdminAuthGuard({ children }) {
   if (checking) {
     return (
       <div className="admin-loading">
-        <div className="admin-loading-inner">Loading…</div>
+        <div className="admin-loading-inner">
+          <div className="admin-loading-spinner" />
+          <span>Loading admin panel…</span>
+        </div>
       </div>
     );
   }

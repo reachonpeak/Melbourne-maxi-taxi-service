@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getIdToken } from 'firebase/auth';
 import { auth } from '@/lib/firebase-client';
+import { MapSkeleton } from '@/components/admin/AdminSkeleton';
 
 export default function MapPage() {
   const [visitors, setVisitors] = useState([]);
@@ -167,7 +168,7 @@ export default function MapPage() {
     };
   }, [mapReady, loading, visitors, leads]);
 
-  if (loading) return <div className="admin-page-loading">Loading map data…</div>;
+  if (loading) return <MapSkeleton />;
   if (error) return <div className="admin-page-error">Error: {error}</div>;
 
   const leadsWithLocation = leads.filter(l => l.location?.lat);

@@ -3,11 +3,12 @@ import { useAnalytics } from '@/hooks/useAdminData';
 import StatCards from '@/components/admin/StatCards';
 import LeadsOverTimeChart from '@/components/admin/LeadsOverTimeChart';
 import VerifiedRateChart from '@/components/admin/VerifiedRateChart';
+import { AnalyticsSkeleton } from '@/components/admin/AdminSkeleton';
 
 export default function AnalyticsPage() {
   const { data, loading, error } = useAnalytics();
 
-  if (loading) return <div className="admin-page-loading">Loading analytics…</div>;
+  if (loading) return <AnalyticsSkeleton />;
   if (error) return <div className="admin-page-error">Error: {error}</div>;
 
   return (
