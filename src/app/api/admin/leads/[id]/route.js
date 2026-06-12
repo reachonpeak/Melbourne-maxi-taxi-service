@@ -1,18 +1,6 @@
-import { adminApp, db } from '@/lib/firebase-admin';
-import { getAuth } from 'firebase-admin/auth';
+import { adminApp, db, verifyAdmin } from '@/lib/firebase-admin';
 
 const VALID_STATUSES = ['unverified', 'verified', 'contacted'];
-
-async function verifyAdmin(request) {
-  const header = request.headers.get('authorization');
-  if (!header?.startsWith('Bearer ')) return false;
-  try {
-    const decoded = await getAuth(adminApp).verifyIdToken(header.slice(7));
-    return decoded.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-  } catch {
-    return false;
-  }
-}
 
 export async function PATCH(request, { params }) {
   if (!(await verifyAdmin(request))) {

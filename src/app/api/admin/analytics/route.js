@@ -1,21 +1,4 @@
-import { adminApp, db } from '@/lib/firebase-admin';
-import { getAuth } from 'firebase-admin/auth';
-
-async function verifyAdmin(request) {
-  const header = request.headers.get('authorization');
-  if (!header?.startsWith('Bearer ')) {
-    console.log('[verifyAdmin] no bearer header');
-    return false;
-  }
-  try {
-    const decoded = await getAuth(adminApp).verifyIdToken(header.slice(7));
-    console.log('[verifyAdmin] decoded.email=', JSON.stringify(decoded.email), 'expected=', JSON.stringify(process.env.NEXT_PUBLIC_ADMIN_EMAIL));
-    return decoded.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-  } catch (e) {
-    console.log('[verifyAdmin] verifyIdToken THREW:', e.code || '', e.message);
-    return false;
-  }
-}
+import { adminApp, db, verifyAdmin } from '@/lib/firebase-admin';
 
 function toDateString(ts) {
   if (!ts) return null;

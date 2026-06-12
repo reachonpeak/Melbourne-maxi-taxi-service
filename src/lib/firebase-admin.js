@@ -1,5 +1,6 @@
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
+import { getAuth } from 'firebase-admin/auth';
 
 let adminApp;
 let db;
@@ -35,4 +36,31 @@ try {
   });
 }
 
-export { adminApp, db };
+async function verifyAdmin(request) {
+  const header = request.headers.get('authorization');
+  if (!header?.startsWith('Bearer ')) {
+    console.log('[verifyAdmin] no bearer header');
+    return false;
+  }
+  try {
+    const token = header.slice(7);
+    const decoded = await getAuth(adminApp).verifyIdToken(token);
+    
+    const email = decoded.email?.toLowerCase();
+    const expectedEmail = (process.env.NEXT_PUBLIC_ADMIN_EMAIL || process.env.ADMIN_EMAIL)?.toLowerCase();
+    
+    console.log('[verifyAdmin] decoded.email=', email, 'expected=', expectedEmail);
+    
+    if (!email || !expectedEmail) {
+      console.log('[verifyAdmin] email or expectedEmail is empty');
+      return false;
+    }
+    
+    return email === expectedEmail;
+  } catch (e) {
+    console.log('[verifyAdmin] verifyIdToken THREW:', e.code || '', e.message);
+    return false;
+  }
+}
+
+export { adminApp, db, verifyAdmin };
