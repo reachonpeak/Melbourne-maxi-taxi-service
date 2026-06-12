@@ -14,8 +14,9 @@ export default function ThankYouPage() {
     // form submission lands here, so this is the single reliable conversion point.
     // TODO: replace CONVERSION_LABEL with your real label (Google Ads → Goals → Conversions → Tag setup).
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      const adsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-18217740838';
       window.gtag('event', 'conversion', {
-        send_to: 'AW-18217740838/CONVERSION_LABEL',
+        send_to: `${adsId}/CONVERSION_LABEL`,
         value: 1.0,
         currency: 'AUD',
       });

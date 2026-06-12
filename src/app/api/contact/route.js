@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer';
+import { Timestamp } from 'firebase-admin/firestore';
 import { EMAIL, PHONE, PHONE_DISPLAY } from '@/lib/site';
+import { db } from '@/lib/firebase-admin';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -149,6 +151,30 @@ export async function POST(request) {
       subject: `New Enquiry from ${name} — MelbourneMaxiTaxi`,
       html: buildHtml({ name, email, phone, service, date, message }),
     });
+
+    // Save contact lead to Firestore
+    try {
+      await db.collection('leads').add({
+        type: 'contact',
+        source: '/contact',
+        status: 'verified',
+        emailVerified: false,
+        name,
+        email,
+        phone,
+        booking: null,
+        contact: {
+          service: service || null,
+          requestedDate: date || null,
+          message,
+        },
+        ipLocation: null,
+        submittedFrom: '/contact',
+        createdAt: Timestamp.now(),
+      });
+    } catch (fsErr) {
+      console.error('Firestore write failed (contact):', fsErr);
+    }
 
     return Response.json({ success: true });
   } catch (err) {
