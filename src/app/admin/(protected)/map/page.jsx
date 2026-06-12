@@ -1,8 +1,19 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
-import { getIdToken } from 'firebase/auth';
+import { getIdToken, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/lib/firebase-client';
 import { MapSkeleton } from '@/components/admin/AdminSkeleton';
+
+/** Wait for Firebase Auth to restore the session before calling getIdToken */
+function waitForCurrentUser() {
+  return new Promise((resolve, reject) => {
+    if (auth.currentUser) { resolve(auth.currentUser); return; }
+    const unsub = onAuthStateChanged(auth, (user) => {
+      unsub();
+      user ? resolve(user) : reject(new Error('Not authenticated'));
+    }, (err) => { unsub(); reject(err); });
+  });
+}
 
 export default function MapPage() {
   const [visitors, setVisitors] = useState([]);
@@ -15,7 +26,8 @@ export default function MapPage() {
     setLoading(true);
     setError(null);
     try {
-      const token = await getIdToken(auth.currentUser, true);
+      const user = await waitForCurrentUser();
+      const token = await getIdToken(user, true);
       const headers = { Authorization: `Bearer ${token}` };
 
       const [visitorsRes, leadsRes] = await Promise.all([
@@ -40,11 +52,9 @@ export default function MapPage() {
 
   useEffect(() => { fetchData(); }, [fetchData]);
 
-  // Dynamically load Leaflet CSS + JS (no npm install needed)
+  // Dynamically load Leaflet CSS + JS
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
-    // Add Leaflet CSS
     if (!document.getElementById('leaflet-css')) {
       const link = document.createElement('link');
       link.id = 'leaflet-css';
@@ -54,8 +64,6 @@ export default function MapPage() {
       link.crossOrigin = '';
       document.head.appendChild(link);
     }
-
-    // Add Leaflet JS
     if (!window.L) {
       const script = document.createElement('script');
       script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
@@ -75,15 +83,12 @@ export default function MapPage() {
     const container = document.getElementById('leads-map');
     if (!container) return;
 
-    // Clean up previous map instance
     if (container._leaflet_id) {
       container._leaflet_id = undefined;
       container.innerHTML = '';
     }
 
     const L = window.L;
-
-    // Center on Melbourne by default
     const map = L.map('leads-map').setView([-37.8136, 144.9631], 10);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -91,81 +96,61 @@ export default function MapPage() {
       maxZoom: 18,
     }).addTo(map);
 
-    // Custom marker icons
     const visitorIcon = L.divIcon({
       className: 'map-marker-visitor',
       html: '<div class="map-dot map-dot-blue"></div>',
-      iconSize: [14, 14],
-      iconAnchor: [7, 7],
+      iconSize: [14, 14], iconAnchor: [7, 7],
     });
-
     const leadIcon = L.divIcon({
       className: 'map-marker-lead',
       html: '<div class="map-dot map-dot-orange"></div>',
-      iconSize: [18, 18],
-      iconAnchor: [9, 9],
+      iconSize: [18, 18], iconAnchor: [9, 9],
     });
-
     const verifiedIcon = L.divIcon({
       className: 'map-marker-verified',
       html: '<div class="map-dot map-dot-green"></div>',
-      iconSize: [18, 18],
-      iconAnchor: [9, 9],
+      iconSize: [18, 18], iconAnchor: [9, 9],
     });
 
-    // Add visitor markers
     visitors.forEach((v) => {
       if (typeof v.lat !== 'number' || typeof v.lng !== 'number') return;
       const time = v.createdAt ? new Date(v.createdAt).toLocaleString('en-AU') : 'Unknown';
-      L.marker([v.lat, v.lng], { icon: visitorIcon })
-        .addTo(map)
-        .bindPopup(
-          `<div class="map-popup">
-            <div class="map-popup-tag visitor">Visitor</div>
-            <div class="map-popup-row"><strong>Page:</strong> ${v.page || '/'}</div>
-            <div class="map-popup-row"><strong>Time:</strong> ${time}</div>
-            <div class="map-popup-row"><strong>Coords:</strong> ${v.lat.toFixed(4)}, ${v.lng.toFixed(4)}</div>
-          </div>`
-        );
+      L.marker([v.lat, v.lng], { icon: visitorIcon }).addTo(map).bindPopup(
+        `<div class="map-popup">
+          <div class="map-popup-tag visitor">Visitor</div>
+          <div class="map-popup-row"><strong>Page:</strong> ${v.page || '/'}</div>
+          <div class="map-popup-row"><strong>Time:</strong> ${time}</div>
+          <div class="map-popup-row"><strong>Coords:</strong> ${v.lat.toFixed(4)}, ${v.lng.toFixed(4)}</div>
+        </div>`
+      );
     });
 
-    // Add lead markers (only leads with location data)
     leads.forEach((lead) => {
       if (!lead.location || typeof lead.location.lat !== 'number') return;
       const icon = lead.status === 'verified' ? verifiedIcon : leadIcon;
       const statusLabel = lead.status === 'verified' ? 'Verified Lead' : 'Unverified Lead';
       const statusClass = lead.status === 'verified' ? 'verified' : 'lead';
       const time = lead.createdAt ? new Date(lead.createdAt).toLocaleString('en-AU') : 'Unknown';
-
-      L.marker([lead.location.lat, lead.location.lng], { icon })
-        .addTo(map)
-        .bindPopup(
-          `<div class="map-popup">
-            <div class="map-popup-tag ${statusClass}">${statusLabel}</div>
-            ${lead.name ? `<div class="map-popup-row"><strong>Name:</strong> ${lead.name}</div>` : ''}
-            ${lead.email ? `<div class="map-popup-row"><strong>Email:</strong> ${lead.email}</div>` : ''}
-            ${lead.phone ? `<div class="map-popup-row"><strong>Phone:</strong> ${lead.phone}</div>` : ''}
-            <div class="map-popup-row"><strong>Time:</strong> ${time}</div>
-          </div>`
-        );
+      L.marker([lead.location.lat, lead.location.lng], { icon }).addTo(map).bindPopup(
+        `<div class="map-popup">
+          <div class="map-popup-tag ${statusClass}">${statusLabel}</div>
+          ${lead.name  ? `<div class="map-popup-row"><strong>Name:</strong> ${lead.name}</div>` : ''}
+          ${lead.email ? `<div class="map-popup-row"><strong>Email:</strong> ${lead.email}</div>` : ''}
+          ${lead.phone ? `<div class="map-popup-row"><strong>Phone:</strong> ${lead.phone}</div>` : ''}
+          <div class="map-popup-row"><strong>Time:</strong> ${time}</div>
+        </div>`
+      );
     });
 
-    // Also check leads that DON'T have location but DO have ipLocation
-    // (fallback — existing leads might have ipLocation from before)
-
-    // Fit bounds if we have points
     const allPoints = [
       ...visitors.filter(v => typeof v.lat === 'number').map(v => [v.lat, v.lng]),
       ...leads.filter(l => l.location?.lat).map(l => [l.location.lat, l.location.lng]),
     ];
-
     if (allPoints.length > 0) {
       map.fitBounds(allPoints, { padding: [40, 40], maxZoom: 13 });
     }
 
-    return () => {
-      map.remove();
-    };
+    return () => { map.remove(); };
   }, [mapReady, loading, visitors, leads]);
 
   if (loading) return <MapSkeleton />;
@@ -174,39 +159,43 @@ export default function MapPage() {
   const leadsWithLocation = leads.filter(l => l.location?.lat);
 
   return (
-    <div className="admin-page">
+    <div className="admin-page map-page">
+      {/* Header */}
       <div className="admin-page-header">
         <h1 className="admin-page-title">Visitor Map</h1>
         <span className="admin-lead-count">
-          {visitors.length} visitors · {leadsWithLocation.length} leads with location
+          {visitors.length} visitors · {leadsWithLocation.length} leads
         </span>
       </div>
 
       {/* Legend */}
       <div className="map-legend">
         <div className="map-legend-item">
-          <span className="map-dot map-dot-blue" style={{ width: 10, height: 10 }}></span>
+          <span className="map-dot map-dot-blue"  style={{ width: 10, height: 10 }} />
           <span>Visitors ({visitors.length})</span>
         </div>
         <div className="map-legend-item">
-          <span className="map-dot map-dot-orange" style={{ width: 10, height: 10 }}></span>
-          <span>Unverified Leads</span>
+          <span className="map-dot map-dot-orange" style={{ width: 10, height: 10 }} />
+          <span>Unverified</span>
         </div>
         <div className="map-legend-item">
-          <span className="map-dot map-dot-green" style={{ width: 10, height: 10 }}></span>
-          <span>Verified Leads</span>
+          <span className="map-dot map-dot-green" style={{ width: 10, height: 10 }} />
+          <span>Verified</span>
         </div>
       </div>
 
+      {/* Map */}
       <div className="map-container">
-        <div id="leads-map" style={{ width: '100%', height: '100%' }}></div>
+        <div id="leads-map" style={{ width: '100%', height: '100%' }} />
       </div>
 
-      {/* Recent visitors table */}
+      {/* Recent visitors — cards on mobile, table on desktop */}
       {visitors.length > 0 && (
         <div className="admin-section" style={{ marginTop: 20 }}>
           <div className="admin-section-title">Recent visitor locations</div>
-          <div className="admin-table-wrap">
+
+          {/* Desktop table */}
+          <div className="admin-table-wrap map-visitors-desktop">
             <table className="admin-table">
               <thead>
                 <tr>
@@ -231,6 +220,36 @@ export default function MapPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile cards */}
+          <div className="map-visitors-cards">
+            {visitors.slice(0, 50).map((v) => (
+              <div key={v.id} className="map-visitor-card">
+                <div className="mvc-row">
+                  <span className="mvc-label">Coords</span>
+                  <span className="mvc-mono">
+                    {typeof v.lat === 'number' ? `${v.lat.toFixed(4)}, ${v.lng.toFixed(4)}` : '—'}
+                  </span>
+                </div>
+                <div className="mvc-row">
+                  <span className="mvc-label">Page</span>
+                  <span className="mvc-value">{v.page || '/'}</span>
+                </div>
+                <div className="mvc-row">
+                  <span className="mvc-label">Date</span>
+                  <span className="mvc-value">
+                    {v.createdAt ? new Date(v.createdAt).toLocaleString('en-AU') : '—'}
+                  </span>
+                </div>
+                {v.ip && (
+                  <div className="mvc-row">
+                    <span className="mvc-label">IP</span>
+                    <span className="mvc-mono">{v.ip}</span>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       )}
